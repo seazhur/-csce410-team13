@@ -14,7 +14,7 @@
 
 <?php  
 
-    echo "<h1>Home Page</h1>";
+    echo "<h1>My Profile</h1>";
 
 ?>
 

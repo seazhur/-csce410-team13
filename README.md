@@ -14,7 +14,6 @@ This is our final project for CSCE 310.
 - Navigate to the `Import` tab and upload `trip2gether.sql`
 - Open [localhost/trip2gether](http://localhost/trip2gether/index.php)
 
-
 ## Authors
 
   - **Cesar Fuentes** 

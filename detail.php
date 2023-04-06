@@ -14,15 +14,22 @@
 
 <?php  
 
-    echo "<h1>My Comments</h1>";
+    echo "<h1>Detail Page (Destination)</h1>";
 
-    $curr_user = 4;
+    $curr_destination = 4;
 
     // Create connection
     $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
     if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
-    $result = $conn->query("SELECT * FROM `comments` WHERE `user_id`=$curr_user");
+
+
+    // $result = $conn->query("SELECT * FROM `destinations` WHERE `destination_id`=$curr_destination");
+    // if (!$result) { echo "SQL Query Error!"; }
+
+    
+
+    $result = $conn->query("SELECT * FROM `comments` WHERE `destination_id`=$curr_destination");
     if (!$result) { echo "SQL Query Error!"; }
 
     while($comm_row = $result->fetch_assoc()) {
@@ -46,7 +53,6 @@
 
         echo "<br>
               <div class='comment_block'>
-                <h2>$dest_row[attraction]</h2>
                 <p>$user_row[first_name] | $valid_date</p>
                 <p> $stars ($comm_row[rating])</p>
                 <p>$comm_row[description]</p>
@@ -54,9 +60,16 @@
 
     }
 
+
+
+
+
     mysqli_close($conn);
+    
 
 ?>
 
 </body>
 </html>
+
+

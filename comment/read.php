@@ -7,6 +7,7 @@
   <title>My Comments</title>
   <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 </head>
 <body>
 
@@ -15,7 +16,7 @@
 
   <div class="container my-5">
     <h2>My Comments</h2>
-    <a class="btn btn-primary" href="../comment/create.php">New Comment</a>
+    <a class="btn btn-primary" href="../comment/create.php"><i class="bi bi-plus-lg"> Add Comment</i></a>
     <br>
     <br>
     <table class="table">
@@ -24,8 +25,10 @@
         <tr>
           <th>Date</th>
           <th>Destination</th>
-          <th>Description</th>
           <th>Rating</th>
+          <th>Description</th>
+          <th></th> <!-- edit -->
+          <th></th> <!-- delete -->
           <!-- <th>User</th> -->
         </tr>
       </thead>
@@ -66,15 +69,13 @@
               <tr>
                 <td>$valid_date</td>
                 <td>$dest_row[attraction]</td>
-                <td>$comm_row[description]</td>
                 <td>$stars</td>
-                <td>
-                  <a class='btn btn-primary btn-sm' href='#'>Edit</a>
-                  <a class='btn btn-danger btn-sm' href='#'>Delete</a>
-                </td>
+                <td>$comm_row[description]</td>
+                <td><a class='btn btn-primary btn-sm' href='#'><i class='bi bi-pencil-fill'></i></a></td>
+                <td><a class='btn btn-danger btn-sm' href='#'><i class='bi bi-trash-fill'></i></a></td>
               </tr>
               ";
-
+              
               // <td>$user_row[first_name]</td>
 
           }

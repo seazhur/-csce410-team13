@@ -1,5 +1,10 @@
 <?php include "../connect.php" ?>
 
+<?php 
+// TODO: Replace with current user
+$curr_user = 4; 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,12 +22,15 @@
   <div id="nav-placeholder"></div>
 
   <div class="container my-5">
+
     <h2>My Comments</h2>
     <a class="btn btn-primary" href="../comment/create.php"><i class="bi bi-plus-lg"> Add Comment</i></a>
     <br>
     <br>
+
     <table class="table">
-      <!-- HEADER -->
+
+      <!-- TABLE HEADER -->
       <thead>
         <tr>
           <th>Date</th>
@@ -31,17 +39,15 @@
           <th>Description</th>
           <th></th> <!-- edit -->
           <th></th> <!-- delete -->
-          <!-- <th>User</th> -->
         </tr>
       </thead>
-      <!-- BODY -->
+
+      <!-- TABLE BODY -->
       <tbody>
 
         <?php
 
-          // TODO: Replace with current user
-          $curr_user = 4; 
-
+          // query all of the users comments
           $result = $conn->query("SELECT * FROM `comments` WHERE `user_id`=$curr_user");
           if (!$result) { echo "SQL Query Error!"; }
 
@@ -61,7 +67,7 @@
               $rating = intval("$comm_row[rating]");
               $stars = str_repeat("★", $rating) . str_repeat("☆", 5 - $rating);
 
-              // reformat date
+              // Reformat date
               $valid_date = date( 'm/d/y', strtotime("$comm_row[creation_time]")); // (g:i A)
 
               echo "
@@ -75,8 +81,6 @@
               </tr>
               ";
               
-              // <td>$user_row[first_name]</td>
-
           }
 
         ?>
@@ -91,9 +95,6 @@
     $("#nav-placeholder").load("../nav.html");
   });
 </script>
-
-<!-- TODO: finish the CUD operations -->
-<!-- edit.php, delete.php?id=$row[id] -->
 
 <?php
 mysqli_close($conn);

@@ -10,19 +10,17 @@ $rating = "";
 $description = "";
 
 $errorMessage = "";
-$successMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") { 
 
+    // get the form inputs
     $destination_id = $_POST["dest-select"];
     $rating = $_POST["rating"];
     $description = $_POST["description"];
 
     do {
 
-        // get select form input
-        $destination_id = $_POST['dest-select'];
-
+        // validate inputs
         if ( empty($destination_id) || empty($rating) ||  empty($description)) {
             $errorMessage = "All fields are required";
             break;
@@ -34,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $result = $conn->query($query);
         if (!$result) { $errorMessage = "Invalid Query: " . $conn->connect_error; break; }
 
+        // reset the form values
         $destination_id = "";
         $rating = "";
         $description = "";
 
-        $successMessage = "Comment added correctly";
-
+        // go back to comments page
         header("location: ../comment/read.php");
         exit;
 
@@ -48,14 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 ?>
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Comment</title>
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 </head>
 <body>
 
@@ -65,15 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <div class="container my-5">
         <h2>New Comment</h2> 
 
+        <!-- Error Message -->
         <?php
-        if ( !empty($successMessage) ) {
-            echo "
-            <div class='alert alert-success'>
-                <strong>Success!</strong> $successMessage
-            </div>
-            ";
-        }
-
         if ( !empty($errorMessage) ) {
             echo "
             <div class='alert alert-danger'>
@@ -83,17 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         ?>
 
-
-<!-- <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post"> -->
-
+        <!-- Input Form -->
         <form method="post">
 
-            <!-- Inputs -->
+            <!-- Destination -->
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Destination</label>
                 <div class="col-sm-6">
-
-                    <!-- <input type="text" class="form-control" name="destination" value="">  -->
 
                     <select class="form-select" name="dest-select">
                         <div class="col-sm-6">
@@ -101,9 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <option selected></option>
 
                             <?php
-                            $result = $conn->query("SELECT * FROM `destinations`");
-                            if (!$result) { echo "SQL Query Error!"; }
-                            while($dest_row = $result->fetch_assoc()) {
+                            $result2 = $conn->query("SELECT * FROM `destinations`");
+                            if (!$result2) { echo "SQL Query Error!"; }
+                            while($dest_row = $result2->fetch_assoc()) {
                                 echo "<option value='$dest_row[destination_id]'>$dest_row[attraction] ($dest_row[city], $dest_row[state])</option>";
                             }
                             ?>
@@ -113,12 +105,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </div>
             </div> 
 
+            <!-- Rating -->
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Rating</label>
                 <div class="col-sm-6">
                     <input type="number" class="form-control" name="rating" min="0" max="5" value="<?php echo $rating; ?>"> </div>
             </div> 
 
+            <!-- Description -->
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-6">

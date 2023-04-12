@@ -1,6 +1,51 @@
+<?php include "../connect.php" ?>
+
 <?php
-$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
-if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+
+// TODO: Replace with current user
+$curr_user = 4; 
+
+$destination_id = "";
+$rating = "";
+$description = "";
+
+$errorMessage = "";
+$successMessage = "";
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") { 
+
+    $destination_id = $_POST["dest-select"];
+    $rating = $_POST["rating"];
+    $description = $_POST["description"];
+
+    do {
+
+        // get select form input
+        $destination_id = $_POST['dest-select'];
+
+        if ( empty($destination_id) || empty($rating) ||  empty($description)) {
+            $errorMessage = "All fields are required";
+            break;
+        }
+
+        // add new comment to database
+        $query = "INSERT INTO `comments` (`comment_id`, `rating`, `description`, `creation_time`, `user_id`, `destination_id`)" . 
+                 "VALUES (NULL, '$rating', '$description', current_timestamp(),  $curr_user, $destination_id)";
+        $result = $conn->query($query);
+        if (!$result) { $errorMessage = "Invalid Query: " . $conn->connect_error; break; }
+
+        $destination_id = "";
+        $rating = "";
+        $description = "";
+
+        $successMessage = "Comment added correctly";
+
+        header("location: ../comment/read.php");
+        exit;
+
+    } while (false);
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,24 +64,51 @@ if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
     <div class="container my-5">
         <h2>New Comment</h2> 
+
+        <?php
+        if ( !empty($successMessage) ) {
+            echo "
+            <div class='alert alert-success'>
+                <strong>Success!</strong> $successMessage
+            </div>
+            ";
+        }
+
+        if ( !empty($errorMessage) ) {
+            echo "
+            <div class='alert alert-danger'>
+                <strong>Error!</strong> $errorMessage
+            </div>
+            ";
+        }
+        ?>
+
+
+<!-- <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post"> -->
+
         <form method="post">
 
             <!-- Inputs -->
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Destination</label>
                 <div class="col-sm-6">
+
                     <!-- <input type="text" class="form-control" name="destination" value="">  -->
-                    <select class="form-select" aria-label="Default select example">
-                        <div class="col-sm-6"><option selected></option>
 
-                        <?php
-                        $result = $conn->query("SELECT * FROM `destinations`");
-                        if (!$result) { echo "SQL Query Error!"; }
-                        while($dest_row = $result->fetch_assoc()) {
-                            echo "<option value=`dest_row[attraction]`>$dest_row[attraction] ($dest_row[city], $dest_row[state])</option>";
-                        }
-                        ?>
+                    <select class="form-select" name="dest-select">
+                        <div class="col-sm-6">
+                            
+                            <option selected></option>
 
+                            <?php
+                            $result = $conn->query("SELECT * FROM `destinations`");
+                            if (!$result) { echo "SQL Query Error!"; }
+                            while($dest_row = $result->fetch_assoc()) {
+                                echo "<option value='$dest_row[destination_id]'>$dest_row[attraction] ($dest_row[city], $dest_row[state])</option>";
+                            }
+                            ?>
+
+                        </div>
                     </select>
                 </div>
             </div> 
@@ -44,27 +116,28 @@ if (!$conn) { die("Connection failed: " . $conn->connect_error); }
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Rating</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" name="rating" value="" min="0" max="5"> </div>
+                    <input type="number" class="form-control" name="rating" min="0" max="5" value="<?php echo $rating; ?>"> </div>
             </div> 
 
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" name="description" rows="6" maxlength="255"></textarea> </div>
+                    <textarea class="form-control" name="description" rows="6" maxlength="255" value="<?php echo $description; ?>"></textarea> </div>
             </div> 
 
             <!-- Buttons -->
             <div class="row mb-3">
                 <div class="offset-sm-3 col-sm-3 d-grid">
-                    <button type="submit" class="btn btn-primary"> Submit</buttons>
+                    <button type="submit" class="btn btn-primary">Submit</buttons>
                 </div>
                 <div class="col-sm-3 d-grid">
-                    <a class="btn btn-outline-primary" href="read.php" role="button">Cancel</a>
+                    <a class="btn btn-outline-primary" href="../comment/read.php" role="button">Cancel</a>
                 </div>
             </div>
 
-
         </form>
+
+
     </div>
     
 </body>
@@ -76,6 +149,4 @@ if (!$conn) { die("Connection failed: " . $conn->connect_error); }
   });
 </script>
 
-<?php
-mysqli_close($conn);
-?>
+<?php mysqli_close($conn); ?>

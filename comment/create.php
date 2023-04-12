@@ -1,3 +1,8 @@
+<?php
+$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,23 +30,11 @@
                         <div class="col-sm-6"><option selected></option>
 
                         <?php
-
-                        $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
-                        if (!$conn) { die("Connection failed: " . $conn->connect_error); }
-
                         $result = $conn->query("SELECT * FROM `destinations`");
                         if (!$result) { echo "SQL Query Error!"; }
-
                         while($dest_row = $result->fetch_assoc()) {
-
-                            echo "
-                            <option value=`dest_row[attraction]`>$dest_row[attraction] ($dest_row[city], $dest_row[state])</option>
-                            ";
-
+                            echo "<option value=`dest_row[attraction]`>$dest_row[attraction] ($dest_row[city], $dest_row[state])</option>";
                         }
-
-                        mysqli_close($conn);
-
                         ?>
 
                     </select>
@@ -82,3 +75,7 @@
     $("#nav-placeholder").load("../nav.html");
   });
 </script>
+
+<?php
+mysqli_close($conn);
+?>

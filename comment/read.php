@@ -1,3 +1,8 @@
+<?php
+$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,9 +45,6 @@
           // TODO: Replace with current user
           $curr_user = 4; 
 
-          $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
-          if (!$conn) { die("Connection failed: " . $conn->connect_error); }
-
           $result = $conn->query("SELECT * FROM `comments` WHERE `user_id`=$curr_user");
           if (!$result) { echo "SQL Query Error!"; }
 
@@ -80,8 +82,6 @@
 
           }
 
-          mysqli_close($conn);
-
         ?>
 
       </tbody>
@@ -95,7 +95,9 @@
   });
 </script>
 
-
-
 <!-- TODO: finish the CUD operations -->
 <!-- edit.php, delete.php?id=$row[id] -->
+
+<?php
+mysqli_close($conn);
+?>

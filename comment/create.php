@@ -116,7 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" name="description" rows="6" maxlength="255" value="<?php echo $description; ?>"></textarea> </div>
+                    <textarea class="form-control" name="description" rows="6" maxlength="255"><?php echo $description; ?></textarea>
+                </div>
             </div> 
 
             <!-- Buttons -->

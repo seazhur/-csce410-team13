@@ -76,8 +76,8 @@ $curr_user = 4;
                 <td>$dest_row[attraction]</td>
                 <td>$stars</td>
                 <td>$comm_row[description]</td>
-                <td><a class='btn btn-primary btn-sm' href='#'><i class='bi bi-pencil-fill'></i></a></td>
-                <td><a class='btn btn-danger btn-sm' href='#'><i class='bi bi-trash-fill'></i></a></td>
+                <td><a class='btn btn-primary btn-sm' href='../comment/edit.php?comment_id=$comm_row[comment_id]'><i class='bi bi-pencil-fill'></i></a></td>
+                <td><a class='btn btn-danger btn-sm' href='../comment/delete.php?comment_id=$comm_row[comment_id]'><i class='bi bi-trash-fill'></i></a></td>
               </tr>
               ";
               

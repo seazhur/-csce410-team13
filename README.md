@@ -9,6 +9,7 @@ This is our final project for CSCE 310.
 ## Getting Started
 
 - Navigate to the folder `XAMPP/htdocs/` and clone the repository
+  - The new folder should be called `trip2gether`
 - Open XAMPP
 	- Start the MySQL and Apache servers ([Tutorial](https://www.edureka.co/blog/how-to-run-a-php-program-in-xampp/))
 - Open [localhost/phpmyadmin](http://localhost/phpmyadmin/)

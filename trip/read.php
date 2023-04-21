@@ -22,12 +22,16 @@
       $user_id = 4; //will need to code later
 
       //getting all the destinations for a certain user
-      $getTrip = "SELECT destinations.attraction, trips.trip_id, destinations.destination_id, trips.start_date, trips.end_date, destinations.city, destinations.state
+      $getTrip = "SELECT destinations.attraction, trips.trip_id, destinations.destination_id, 
+                    trips.start_date, trips.end_date, destinations.city, destinations.state,
+                    GROUP_CONCAT(users.first_name) as users_names
                 FROM attendances
                 JOIN trips ON attendances.trip_id = trips.trip_id
                 JOIN assignments ON trips.trip_id = assignments.trip_id
                 JOIN destinations ON assignments.destination_id = destinations.destination_id
-                WHERE attendances.user_id = $user_id
+                JOIN (SELECT trip_id FROM attendances WHERE user_id = $user_id) as x ON attendances.trip_id = x.trip_id
+                JOIN users on attendances.user_id = users.user_id
+                WHERE attendances.user_id != $user_id
                 GROUP BY trips.trip_id, destinations.destination_id";
       //execute the query
       $myTrip = mysqli_query($conn, $getTrip);
@@ -48,17 +52,24 @@
           if($trip_id != $curr_trip_id) {
             $start_date = $row['start_date'];
             $end_date = $row['end_date'];
-            echo "<br><h2>Trip $trip_num: From $start_date to $end_date</h2>";
+            $u = $row['users_names'];
+            $users_attending = explode(',', $u);
+
+            echo "<br><br><h2>Trip $trip_num: From $start_date to $end_date</h2>";
+            echo "<h5>Other Attendees: </h5>";
+            foreach($users_attending as $name) {
+              echo "<h5>$name</h5>";
+            }
             $curr_trip_id = $trip_id;
             $trip_num = $trip_num + 1;
           }
-
+        
           //display all the destinations for that one trip
           if($destination_id != $curr_dest_id) {
             $attraction = $row['attraction'];
             $city = $row['city'];
             $state = $row['state'];
-            echo "<h3>Destination: $attraction in $city, $state</h3>";
+            echo "<h5>Destination: $attraction in $city, $state</h5>";
             $curr_dest_id = $destination_id;
           }
         }

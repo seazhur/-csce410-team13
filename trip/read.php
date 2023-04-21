@@ -12,7 +12,63 @@
 
   <!--Navigation bar-->
   <div id="nav-placeholder"></div>
+    <h2>My Trips</h2>
+    <?php
+      //connect to the database
+      $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+      if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
+      //trial 3
+      $user_id = 4; //will need to code later
+
+      //getting all the destinations for a certain user
+      $getTrip = "SELECT destinations.attraction, trips.trip_id, destinations.destination_id, trips.start_date, trips.end_date, destinations.city, destinations.state
+                FROM attendances
+                JOIN trips ON attendances.trip_id = trips.trip_id
+                JOIN assignments ON trips.trip_id = assignments.trip_id
+                JOIN destinations ON assignments.destination_id = destinations.destination_id
+                WHERE attendances.user_id = $user_id
+                GROUP BY trips.trip_id, destinations.destination_id";
+      //execute the query
+      $myTrip = mysqli_query($conn, $getTrip);
+
+      //check if empty
+      if(mysqli_num_rows($myTrip) > 0) {
+        //initialize variables to keep track of current variables
+        $curr_trip_id = null;
+        $curr_dest_id = null;
+        $trip_num = 1; //used to display which trip the user is looking at, not the same as trip_id
+
+        //loop through to display the desired attributes
+        while ($row = mysqli_fetch_assoc($myTrip)) {
+          $trip_id = $row['trip_id'];
+          $destination_id = $row['destination_id'];
+
+          //if the current trip ID is diff from prev one, it is a new trip
+          if($trip_id != $curr_trip_id) {
+            $start_date = $row['start_date'];
+            $end_date = $row['end_date'];
+            echo "<br><h2>Trip $trip_num: From $start_date to $end_date</h2>";
+            $curr_trip_id = $trip_id;
+            $trip_num = $trip_num + 1;
+          }
+
+          //display all the destinations for that one trip
+          if($destination_id != $curr_dest_id) {
+            $attraction = $row['attraction'];
+            $city = $row['city'];
+            $state = $row['state'];
+            echo "<h3>Destination: $attraction in $city, $state</h3>";
+            $curr_dest_id = $destination_id;
+          }
+        }
+      } else {
+        echo "No results found";
+      }
+
+      // close the database connection
+      mysqli_close($conn);
+    ?>
 
 
 </body>

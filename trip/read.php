@@ -82,14 +82,14 @@
           $attendances = mysqli_query($conn, $getAttendance);
           //check if empty
           if(mysqli_num_rows($attendances) > 0) {
-            echo "Attendees: ";
+            echo "Attendees:<br>";
             while($row = mysqli_fetch_assoc($attendances)) {
               $attendee = $row['first_name'];
               echo "$attendee <br>";
             }
+            echo '<div><br><button class="delete-btn" data-tripid="'.$trip_id.'">Remove Trip</button></div>';
             echo "</div>";
           }
-        
         }
       }
 
@@ -104,16 +104,17 @@
   $(function(){
     $("#nav-placeholder").load("../nav.html");
   });
+
   var acc = document.getElementsByClassName("accordion");
   var i;
 
   for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function() {
-      /* Toggle between adding and removing the "active" class,
-      to highlight the button that controls the panel */
+    // Toggle between adding and removing the "active" class,
+    // to highlight the button that controls the panel 
       this.classList.toggle("active");
 
-      /* Toggle between hiding and showing the active panel */
+    // Toggle between hiding and showing the active panel 
       var panel = this.nextElementSibling;
       if (panel.style.display === "block") {
         panel.style.display = "none";
@@ -126,6 +127,16 @@
       panel.style.maxHeight = panel.scrollHeight + "px";
     }
     });
-}
+  }
+
+  $(document).ready(function() {
+    $(".delete-btn").click(function() {
+      var trip_id = $(this).data("tripid");
+      $.post("delete_trip.php", {del_trip_id: trip_id}, function() {
+        location.reload();
+      })
+    })
+  })
+  
   
 </script>

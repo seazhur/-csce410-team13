@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Trips</title>
   <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="trips.css" importance="high">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
@@ -18,74 +19,113 @@
       $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
       if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
-      //trial 3
       $user_id = 4; //will need to code later
 
-      //getting all the destinations for a certain user
-      $getTrip = "SELECT destinations.attraction, trips.trip_id, destinations.destination_id, 
-                    trips.start_date, trips.end_date, destinations.city, destinations.state,
-                    GROUP_CONCAT(users.first_name) as users_names
-                FROM attendances
-                JOIN trips ON attendances.trip_id = trips.trip_id
-                JOIN assignments ON trips.trip_id = assignments.trip_id
-                JOIN destinations ON assignments.destination_id = destinations.destination_id
-                JOIN (SELECT trip_id FROM attendances WHERE user_id = $user_id) as x ON attendances.trip_id = x.trip_id
-                JOIN users on attendances.user_id = users.user_id
-                WHERE attendances.user_id != $user_id
-                GROUP BY trips.trip_id, destinations.destination_id";
+      //get trips for a certain user
+      $getTripID = "SELECT trips.trip_id, trips.start_date, trips.end_date
+                    FROM trips
+                    JOIN attendances ON trips.trip_id = attendances.trip_id
+                    WHERE attendances.user_id = $user_id";
+
       //execute the query
-      $myTrip = mysqli_query($conn, $getTrip);
+      $myTrip = mysqli_query($conn, $getTripID);
 
       //check if empty
       if(mysqli_num_rows($myTrip) > 0) {
-        //initialize variables to keep track of current variables
-        $curr_trip_id = null;
-        $curr_dest_id = null;
-        $trip_num = 1; //used to display which trip the user is looking at, not the same as trip_id
+        $curr_trip = null;
+        $curr_dest = null;
+        $trip_num = 1; //not the same as trip_id, keeping count of the trips
 
-        //loop through to display the desired attributes
-        while ($row = mysqli_fetch_assoc($myTrip)) {
+        while($row = mysqli_fetch_assoc($myTrip)) {
           $trip_id = $row['trip_id'];
-          $destination_id = $row['destination_id'];
 
-          //if the current trip ID is diff from prev one, it is a new trip
-          if($trip_id != $curr_trip_id) {
-            $start_date = $row['start_date'];
-            $end_date = $row['end_date'];
-            $u = $row['users_names'];
-            $users_attending = explode(',', $u);
+          //check if it is a new trip
+          if($trip_id != $curr_trip) {
+            $start_date = date('F d, Y', strtotime($row['start_date']));
+            $end_date = date('F d, Y', strtotime($row['end_date']));
+            echo '<button class = "accordion">';
+            echo "<h2>Trip $trip_num From $start_date to $end_date</h2></button>";
+            $curr_trip = $trip_id;
+            $trip_num++;
+          }
 
-            echo "<br><br><h2>Trip $trip_num: From $start_date to $end_date</h2>";
-            echo "<h5>Other Attendees: </h5>";
-            foreach($users_attending as $name) {
-              echo "<h5>$name</h5>";
+          //get destination(s) for a trip
+          $getDestination = "SELECT destinations.attraction, destinations.city, destinations.state
+                            FROM trips
+                            JOIN assignments ON trips.trip_id = assignments.trip_id
+                            JOIN destinations ON assignments.destination_id = destinations.destination_id
+                            WHERE trips.trip_id = $trip_id";
+
+          //execute the query
+          $myDestination = mysqli_query($conn, $getDestination);
+          //check if empty
+          if(mysqli_num_rows($myDestination) > 0) {
+            $destination_num = 1; //not same as destination_id, keeps count of destinations in a trip
+            echo '<div class = "panel">';
+            while($row = mysqli_fetch_assoc($myDestination)) {
+              $attraction = $row['attraction'];
+              $city = $row['city'];
+              $state = $row['state'];
+              echo "Destination $destination_num: $attraction in $city, $state <br>";
+              $destination_num++;
             }
-            $curr_trip_id = $trip_id;
-            $trip_num = $trip_num + 1;
+            // echo "</div>";
+          }
+
+          //get the attendees for a trip
+          $getAttendance = "SELECT users.first_name
+                            FROM users
+                            JOIN attendances ON users.user_id = attendances.user_id
+                            WHERE attendances.trip_id = $trip_id";
+
+          //execute the query
+          $attendances = mysqli_query($conn, $getAttendance);
+          //check if empty
+          if(mysqli_num_rows($attendances) > 0) {
+            echo "Attendees: ";
+            while($row = mysqli_fetch_assoc($attendances)) {
+              $attendee = $row['first_name'];
+              echo "$attendee <br>";
+            }
+            echo "</div>";
           }
         
-          //display all the destinations for that one trip
-          if($destination_id != $curr_dest_id) {
-            $attraction = $row['attraction'];
-            $city = $row['city'];
-            $state = $row['state'];
-            echo "<h5>Destination: $attraction in $city, $state</h5>";
-            $curr_dest_id = $destination_id;
-          }
         }
-      } else {
-        echo "No results found";
       }
 
       // close the database connection
       mysqli_close($conn);
     ?>
 
-
 </body>
+</html>
 
 <script>
   $(function(){
     $("#nav-placeholder").load("../nav.html");
   });
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      /* Toggle between adding and removing the "active" class,
+      to highlight the button that controls the panel */
+      this.classList.toggle("active");
+
+      /* Toggle between hiding and showing the active panel */
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+      if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+    });
+}
+  
 </script>

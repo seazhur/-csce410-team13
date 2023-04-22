@@ -25,7 +25,8 @@
       $getTripID = "SELECT trips.trip_id, trips.start_date, trips.end_date
                     FROM trips
                     JOIN attendances ON trips.trip_id = attendances.trip_id
-                    WHERE attendances.user_id = $user_id";
+                    WHERE attendances.user_id = $user_id
+                    ORDER BY trips.start_date ASC";
 
       //execute the query
       $myTrip = mysqli_query($conn, $getTripID);

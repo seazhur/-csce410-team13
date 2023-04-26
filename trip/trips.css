@@ -47,3 +47,15 @@
     width: 60%;
     /* margin: auto; */
 }
+
+.create-btn {
+    margin-right: 18px;
+}
+
+.update-btn {
+    margin-right: 18px;
+}
+
+.delete-btn {
+    margin-right: 18px;
+}

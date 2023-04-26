@@ -88,11 +88,32 @@
               $attendee = $row['first_name'];
               echo "$attendee <br>";
             }
-            echo '<div><br><button class="delete-btn" data-tripid="'.$trip_id.'">Remove Trip</button></div>';
+            echo '<br><div><button class="update-btn" data-tripid="'.$trip_id.'">Update trip</button>';
+            echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
             echo "</div>";
           }
         }
       }
+
+      echo '<br><button id="create_btn">Add new trip</button>';
+      //create a form to create a new trip
+      echo '<form id="trip_form" action=create_trip.php method="POST" style="display:none">
+              <label for="start_date">Start Date:</label>
+              <input type="date" name="start_date" required><br>
+              <label for="end_date">End Date:</label>
+              <input type="date" name="end_date" required><br>';
+
+              //get all users as options
+      echo  '<label for="attendees"Attendees:</label>
+              <select name="attendees[]" multiple required>';
+              $get_users = "SELECT * FROM users";
+              $users = $conn->query($get_users);
+              while($row = mysqli_fetch_assoc($users)) {
+                echo '<option value="'.$row["user_id"].'">'.$row["first_name"].'</option>';
+              }
+          echo '</select><br>';
+        echo '<input type="submit" value="Submit">';
+      echo '<form>';
 
       // close the database connection
       mysqli_close($conn);
@@ -139,5 +160,11 @@
     })
   })
   
+  var createTrip = document.getElementById("create_btn");
+  var tripForm = document.getElementById("trip_form");
+
+  createTrip.addEventListener("click", function() {
+    tripForm.style.display = "block";
+  });
   
 </script>

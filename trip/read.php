@@ -98,21 +98,31 @@
       echo '<br><button id="create_btn">Add new trip</button>';
       //create a form to create a new trip
       echo '<form id="trip_form" action=create_trip.php method="POST" style="display:none">
-              <label for="start_date">Start Date:</label>
+              <label for="start_date">Start Date: </label>
               <input type="date" name="start_date" required><br>
-              <label for="end_date">End Date:</label>
-              <input type="date" name="end_date" required><br>';
+              <label for="end_date">End Date: </label>
+              <input type="date" name="end_date" required><br><br>';
 
-              //get all users as options
-      echo  '<label for="attendees"Attendees:</label>
+      //get all users as options for the form
+      echo  '<label for="attendees">Attendees: </label>
               <select name="attendees[]" multiple required>';
               $get_users = "SELECT * FROM users";
               $users = $conn->query($get_users);
               while($row = mysqli_fetch_assoc($users)) {
                 echo '<option value="'.$row["user_id"].'">'.$row["first_name"].'</option>';
               }
-          echo '</select><br>';
-        echo '<input type="submit" value="Submit">';
+      echo '</select><br><br>';
+      
+      echo '<div id="dest_container">
+            <label for="attraction"> Destination: </label>
+            <input type="text" name="attractions[]" required><br>
+            <label for="city">City: </label>
+            <input type="text" name="cities[]" required><br>
+            <label for="state">State: </label>
+            <input type="text" name="states[]" required><br><br></div>';
+      echo '<button id="add_new_dest">Add additional destination</button><br><br>';
+
+      echo '<input type="submit" value="Submit"><br>';
       echo '<form>';
 
       // close the database connection
@@ -131,7 +141,7 @@
   var i;
 
   for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
+    acc[i].addEventListener("click", function() { //for the accordion
     // Toggle between adding and removing the "active" class,
     // to highlight the button that controls the panel 
       this.classList.toggle("active");
@@ -145,14 +155,14 @@
       }
       if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    }
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
     });
   }
 
   $(document).ready(function() {
-    $(".delete-btn").click(function() {
+    $(".delete-btn").click(function() { //when the cancel trip button is clicked
       var trip_id = $(this).data("tripid");
       $.post("delete_trip.php", {del_trip_id: trip_id}, function() {
         location.reload();
@@ -163,8 +173,24 @@
   var createTrip = document.getElementById("create_btn");
   var tripForm = document.getElementById("trip_form");
 
-  createTrip.addEventListener("click", function() {
+  createTrip.addEventListener("click", function() { //display form when the add trip button is clicked
     tripForm.style.display = "block";
+  });
+
+  $(document).ready(function() {
+    $("#add_new_dest").click(function() { //when the add additional destination button is clicked
+      var add_attraction = '<label for="attraction">Destination:</label>' +
+                            '<input type="text" name="attractions[]" required><br>';
+      var add_city = '<label for="city">City:</label>' +
+                      '<input type="text" name="cities[]" required><br>';
+      var add_state = '<label for="state">State:</label>' +
+                      '<input type="text" name="states[]" required><br><br>';
+
+      $("#dest_container").append(add_attraction);
+      $("#dest_container").append(add_city);
+      $("#dest_container").append(add_state);
+
+    });
   });
   
 </script>

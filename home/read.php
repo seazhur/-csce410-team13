@@ -1,56 +1,57 @@
+<?php
+session_start();
+//connect to the database
+$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+
+if (isset($_SESSION['user_id'])) {
+  // user is already logged in, redirect to profile
+  header('Location: nav.html');
+  exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // retrieve and sanitize input values
+  $username = htmlspecialchars(trim($_POST['username']));
+  $password = htmlspecialchars(trim($_POST['password']));
+
+  // call checklogin.php to validate login
+  require_once('checklogin.php');
+  $result = check_login($username, $password);
+
+  if ($result['status'] == 'success') {
+    // valid login, store session variables and redirect to nav
+    $_SESSION['user_id'] = $result['user_id'];
+    $_SESSION['username'] = $result['username'];
+    header('Location: nav.html');
+    exit();
+  } else {
+    // invalid login, display error message
+    $error_msg = $result['message'];
+  }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <title>Login</title>
 </head>
 <body>
+  <?php if (isset($error_msg)) { ?>
+    <p><?php echo $error_msg; ?></p>
+  <?php } ?>
 
-  <!--Navigation bar-->
-  <div id="nav-placeholder"></div>
+  <form method="POST" action="login.php">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
 
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
 
-
+    <button type="submit">Login</button>
+  </form>
 </body>
-
-<script>
-  $(function(){
-    $("#nav-placeholder").load("../nav.html");
-  });
-</script>
+</html>
 
 
-
-
-
-<?php  
-
-    // echo "<h1>Home Page</h1>";
-
-    // $curr_user = 4;
-
-    // // Create connection
-    // $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
-    // if (!$conn) { die("Connection failed: " . $conn->connect_error); }
-
-    // $result = $conn->query("SELECT * FROM `destinations`");
-    // if (!$result) { echo "SQL Query Error!"; }
-
-    // while($dest_row = $result->fetch_assoc()) {
-
-    //     // TODO: Get the average rating
-
-    //     echo "<br>
-    //           <div class='comment_block'>
-    //             <h2>$dest_row[attraction]</h2>
-    //             <p>$dest_row[city], $dest_row[state]</p></div>";
-        
-    // }
-
-    // mysqli_close($conn);
-    
-?>

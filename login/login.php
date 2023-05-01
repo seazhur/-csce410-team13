@@ -1,7 +1,9 @@
-<?php include "../connect.php" ?>
-
 <?php
 session_start();
+//connect to the database
+$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+
 if (isset($_SESSION['user_id'])) {
   // user is already logged in, redirect to profile
   header('Location: nav.html');

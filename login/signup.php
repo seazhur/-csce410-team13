@@ -1,4 +1,9 @@
 <?php
+
+//connect to the database
+$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the form data
     $username = $_POST['username'];

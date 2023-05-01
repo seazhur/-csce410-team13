@@ -1,7 +1,9 @@
-<?php include "../connect.php" ?>
-
 <?php
 session_start();
+
+//connect to the database
+$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {

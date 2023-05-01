@@ -1,8 +1,8 @@
-
-<?php include "../connect.php" ?>
-
 <?php
 function check_login($username, $password) {
+  //connect to the database
+  $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+  if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
   // prepare and execute SQL statement
   $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");

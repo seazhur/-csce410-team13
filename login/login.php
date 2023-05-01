@@ -4,7 +4,7 @@
 session_start();
 if (isset($_SESSION['user_id'])) {
   // user is already logged in, redirect to profile
-  header('Location: profile.php');
+  header('Location: nav.html');
   exit();
 }
 

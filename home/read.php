@@ -6,7 +6,7 @@ if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
 if (isset($_SESSION['user_id'])) {
   // user is already logged in, redirect to profile
-  header('Location: nav.html');
+  header('Location: ../nav.html');
   exit();
 }
 

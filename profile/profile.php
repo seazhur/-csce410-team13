@@ -19,7 +19,16 @@
       $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
       if (!$conn) { die("Connection failed: " . $conn->connect_error); }
     
-    
+      //display user information on page
+      // $getuserID = "SELECT users.user_id, users.username, users.first_name, users.last_name, users.phone_numbers, users.age
+      //               FROM users";
+
+      // $myuser = mysqli_query($conn, $getuserID);
+
+
+
+      // close the database connection
+      mysqli_close($conn);
      ?>
 
 

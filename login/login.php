@@ -1,18 +1,27 @@
+<?php include "../connect.php" ?>
+
 <!DOCTYPE html>
 <html>
-
 <head>
-  <link rel="stylesheet" href="styles.css">
+  <title>Login</title>
   
 </head>
-
 <body>
 
-<?php  
+  <h1>Login</h1>
 
-    echo "<h1>Login Page</h1>";
+  <form method="post">
+    <label for="username">username</label>
+    <input type="username" name="username" id="username">
 
-?>
+    <label for="password">password</label>
+    <input type="password" name="password" id="password">
+
+    <button>Log in</button>
+
+  </form>
 
 </body>
 </html>
+
+

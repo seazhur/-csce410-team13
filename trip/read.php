@@ -88,16 +88,26 @@
               $attendee = $row['first_name'];
               echo "$attendee <br>";
             }
-            echo '<br><div><button class="update-btn" data-tripid="'.$trip_id.'">Update trip</button>';
+            echo '<br><div><button class="update-btn" id="update" data-tripid="'.$trip_id.'">Update trip</button>';
+            // echo '<div>';
+              echo '<form id="update_form" action="update_trip.php" method="POST" style="display:none">
+              <label for="start_date">New Start Date: </label>
+              <input type="date" name="start_date" required><br>
+              <label for="end_date">New End Date: </label>
+              <input type="date" name="end_date" required><br>';
+              echo '<input type="submit" value="Submit"><br><br>';
+              echo '</form>';
+            // echo '</div>'; //end form div
+
             echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
-            echo "</div>";
+            echo "</div>"; //end of the panel
           }
         }
       }
 
       echo '<br><button id="create_btn">Add new trip</button>';
       //create a form to create a new trip
-      echo '<form id="trip_form" action=create_trip.php method="POST" style="display:none">
+      echo '<form id="trip_form" action="create_trip.php" method="POST" style="display:none">
               <label for="start_date">Start Date: </label>
               <input type="date" name="start_date" required><br>
               <label for="end_date">End Date: </label>
@@ -123,7 +133,7 @@
       echo '<button id="add_new_dest">Add additional destination</button><br><br>';
 
       echo '<input type="submit" value="Submit"><br>';
-      echo '<form>';
+      echo '</form>';
 
       // close the database connection
       mysqli_close($conn);
@@ -135,6 +145,12 @@
 <script>
   $(function(){
     $("#nav-placeholder").load("../nav.html");
+  });
+
+  var updateTrip = document.getElementById("update");
+  var updateForm = document.getElementById("update_form");
+  updateTrip.addEventListener("click", function() { //display form when the update trip button is clicked
+    updateForm.style.display = "block";
   });
 
   var acc = document.getElementsByClassName("accordion");

@@ -134,7 +134,7 @@
             <input type="text" name="states[]" required><br><br></div>';
       echo '<button id="add_new_dest">Add additional destination</button><br><br>';
 
-      echo '<input type="submit" value="Submit"><br>';
+      echo '<input type="submit" value="Submit" name="submitTrip"><br>';
       echo '</form>';
 
       // close the database connection

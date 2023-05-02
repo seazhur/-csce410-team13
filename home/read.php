@@ -22,8 +22,7 @@
 	</form>
 	
 	<p>Already have an account? Click <a href="login.php">here</a> to login.</p>
-</body>
-</html>
+
 
 
 <?php
@@ -51,3 +50,5 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+</body>
+</html>

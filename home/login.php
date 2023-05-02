@@ -17,44 +17,57 @@
 </body>
 </html>
 
+    <?php
+    // start a session to persist user information across pages
+    session_start();
 
-<?php
-session_start();
+    // check if the form was submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // retrieve the username and password from the form data
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-// Connect to the database
-$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
-if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+        // connect to the database
+        $servername = "localhost";
+        $dbusername = "your_db_username";
+        $dbpassword = "your_db_password";
+        $dbname = "your_db_name";
 
-// Check if the form has been submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
-    // Query the database for the user with the given username and password
-    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    $result = mysqli_query($conn, $query);
-
-    // Check if a matching user was found
-    if (mysqli_num_rows($result) == 1) {
-        $user = mysqli_fetch_assoc($result);
-
-        // Set session variables for user type
-        if ($user['auth_user'] == 1) {
-            $_SESSION['auth_user'] = true;
-        } else {
-            $_SESSION['auth_user'] = false;
+        // check for errors connecting to the database
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
 
-        // Set session variable for username
-        $_SESSION['username'] = $username;
+        // construct the SQL query to retrieve the user with the given username and password
+        $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
 
-        // Redirect to the profile page
-        header("Location: profile.php");
-        exit();
-    } else {
-        echo "Invalid username or password.";
+        // execute the query
+        $result = $conn->query($sql);
+
+        // check if the query returned a matching user
+        if ($result->num_rows > 0) {
+            // fetch the user's information from the query result
+            $user = $result->fetch_assoc();
+
+            // store the user's information in the session for later use
+            $_SESSION['username'] = $username;
+            $_SESSION['is_authorized'] = $user['auth_user'];
+
+            // redirect to the appropriate profile page based on the user's authorization status
+            if ($user['auth_user'] == 1) {
+                header("Location: authprofile.php");
+            } else {
+                header("Location: profile.php");
+            }
+            exit();
+        } else {
+            // display an error message if the user's credentials are invalid
+            echo "<p>Invalid username or password.</p>";
+        }
+
+        // close the database connection
+        $conn->close();
     }
-}
-
-mysqli_close($conn);
-?>
+    ?>

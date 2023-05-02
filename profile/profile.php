@@ -1,3 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Profile</h1>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="new_username" id="username" value="<?php echo $user['username']; ?>" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="new_password" id="password" value="<?php echo $user['password']; ?>" required>
+        <br>
+        <label for="first_name">First Name:</label>
+        <input type="text" name="new_first_name" id="first_name" value="<?php echo $user['first_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
+        <br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="new_last_name" id="last_name" value="<?php echo $user['last_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
+        <br>
+        <label for="phone_number">Phone Number:</label>
+        <input type="tel" name="new_phone_number" id="phone_number" value="<?php echo $user['phone_number']; ?>"required>
+        <br>
+        <label for="age">Age:</label>
+        <input type="number" name="new_age" id="age" value="<?php echo $user['age']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
+        <br>
+        <input type="submit" value="Update">
+    </form>
+    <?php if (!$auth_user) echo "Note: You are not authorized to change your first name, last name, or age."; ?>
+</body>
+</html>
+
+
 <?php
 session_start();
 
@@ -56,35 +89,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Profile</title>
-</head>
-<body>
-    <h1>Profile</h1>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        <label for="username">Username:</label>
-        <input type="text" name="new_username" id="username" value="<?php echo $user['username']; ?>" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="new_password" id="password" value="<?php echo $user['password']; ?>" required>
-        <br>
-        <label for="first_name">First Name:</label>
-        <input type="text" name="new_first_name" id="first_name" value="<?php echo $user['first_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
-        <br>
-        <label for="last_name">Last Name:</label>
-        <input type="text" name="new_last_name" id="last_name" value="<?php echo $user['last_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
-        <br>
-        <label for="phone_number">Phone Number:</label>
-        <input type="tel" name="new_phone_number" id="phone_number" value="<?php echo $user['phone_number']; ?>"required>
-        <br>
-        <label for="age">Age:</label>
-        <input type="number" name="new_age" id="age" value="<?php echo $user['age']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
-        <br>
-        <input type="submit" value="Update">
-    </form>
-    <?php if (!$auth_user) echo "Note: You are not authorized to change your first name, last name, or age."; ?>
-</body>
-</html>

@@ -6,5 +6,5 @@
     session_destroy();
 
     // redirect to login page or homepage
-    header('Location: read.php');
+    header('Location: login.php');
 ?>

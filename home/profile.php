@@ -26,9 +26,9 @@
         <br>
         <input type="submit" value="Update">
     </form>
-    <?php if (!$auth_user) echo "Note: You are not authorized to change your first name, last name, or age if you are not an authorized user."; ?>
-</body>
-</html>
+    <?php if (!$auth_user) echo "Note: You are not an authorized user."; ?>
+<!-- </body>
+</html> -->
 
 
 <?php
@@ -89,3 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 ?>
+</body>
+</html>

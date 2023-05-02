@@ -88,9 +88,10 @@
               $attendee = $row['first_name'];
               echo "$attendee <br>";
             }
-            echo '<br><div><button class="update-btn" id="update" data-tripid="'.$trip_id.'">Update trip</button>';
+            // echo '<br><div><button class="update-btn" id="update" data-tripid="'.$trip_id.'">Update trip</button>';
             // echo '<div>';
-              echo '<form id="update_form" action="update_trip.php" method="POST" style="display:none">
+              echo '<br><br>Update trip date range here: <br>';
+              echo '<form id="update_form" action="update_trip.php" method="POST">
               <label for="start_date">New Start Date: </label>
               <input type="date" name="start_date" required><br>
               <label for="end_date">New End Date: </label>
@@ -147,11 +148,11 @@
     $("#nav-placeholder").load("../nav.html");
   });
 
-  var updateTrip = document.getElementById("update");
-  var updateForm = document.getElementById("update_form");
-  updateTrip.addEventListener("click", function() { //display form when the update trip button is clicked
-    updateForm.style.display = "block";
-  });
+  // var updateTrip = document.getElementById("update");
+  // var updateForm = document.getElementById("update_form");
+  // updateTrip.addEventListener("click", function() { //display form when the update trip button is clicked
+  //   updateForm.style.display = "block";
+  // });
 
   var acc = document.getElementsByClassName("accordion");
   var i;

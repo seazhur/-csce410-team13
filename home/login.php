@@ -1,82 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form method="post" action="auth.php">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+
+
 <?php
 session_start();
 
-// Process form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Connect to the database
+$conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
-    //connect to the database
-    $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
-    if (!$conn) { die("Connection failed: " . $conn->connect_error); }
+// Check if the form has been submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    // Initialize variables and set to empty
-    $username = $password = "";
-    $username_err = $password_err = "";
+    // Query the database for the user with the given username and password
+    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($conn, $query);
 
-    // Validate username
-    if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter your username.";
-    } else {
-        $username = trim($_POST["username"]);
-    }
+    // Check if a matching user was found
+    if (mysqli_num_rows($result) == 1) {
+        $user = mysqli_fetch_assoc($result);
 
-    // Validate password
-    if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter your password.";
-    } else {
-        $password = trim($_POST["password"]);
-    }
-
-    // Check for errors before accessing database
-    if (empty($username_err) && empty($password_err)) {
-        // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
-
-        if ($stmt = $mysqli->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("s", $param_username);
-
-            // Set parameters
-            $param_username = $username;
-
-            // Attempt to execute the prepared statement
-            if ($stmt->execute()) {
-                // Store result
-                $stmt->store_result();
-
-                // Check if username exists, if yes then verify password
-                if ($stmt->num_rows == 1) {
-                    // Bind result variables
-                    $stmt->bind_result($id, $username, $hashed_password);
-                    if ($stmt->fetch()) {
-                        if (password_verify($password, $hashed_password)) {
-                            // Password is correct, so start a new session
-                            session_start();
-
-                            // Store data in session variables
-                            $_SESSION["username"] = $username;
-
-                            // Redirect to user's profile page
-                            header("location: profile.php");
-                        } else {
-                            // Password is not valid, display a generic error message
-                            $password_err = "The password you entered was not valid.";
-                        }
-                    }
-                } else {
-                    // Username doesn't exist, display a generic error message
-                    $username_err = "No account found with that username.";
-                }
-            } else {
-                // Display an error message if query execution failed
-                echo "Oops! Something went wrong. Please try again later.";
-            }
+        // Set session variables for user type
+        if ($user['auth_user'] == 1) {
+            $_SESSION['auth_user'] = true;
+        } else {
+            $_SESSION['auth_user'] = false;
         }
 
-        // Close statement
-        $stmt->close();
-    }
+        // Set session variable for username
+        $_SESSION['username'] = $username;
 
-    // Close connection
-    $mysqli->close();
+        // Redirect to the profile page
+        header("Location: profile.php");
+        exit();
+    } else {
+        echo "Invalid username or password.";
+    }
 }
+
+mysqli_close($conn);
 ?>

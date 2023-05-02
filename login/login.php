@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // valid login, store session variables and redirect to nav
     $_SESSION['user_id'] = $result['user_id'];
     $_SESSION['username'] = $result['username'];
-    header('Location: nav.html');
+    header('Location: ../nav.html');
     exit();
   } else {
     // invalid login, display error message

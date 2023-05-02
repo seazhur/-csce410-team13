@@ -92,11 +92,12 @@
             // echo '<div>';
               echo '<br><br>Update trip date range here: <br>';
               echo '<form id="update_form" action="update_trip.php" method="POST">
-              <label for="start_date">New Start Date: </label>
-              <input type="date" name="start_date" required><br>
-              <label for="end_date">New End Date: </label>
-              <input type="date" name="end_date" required><br>';
-              echo '<input type="submit" value="Submit"><br><br>';
+              <label for="new_start_date">New Start Date: </label>
+              <input type="date" name="new_start_date" required><br>
+              <label for="new_end_date">New End Date: </label>
+              <input type="date" name="new_end_date" required><br>
+              <input type="hidden" name="trip_id_date" value="'.$trip_id.'">';
+              echo '<input type="submit" value="Submit" name="submitDate"><br><br>';
               echo '</form>';
             // echo '</div>'; //end form div
 

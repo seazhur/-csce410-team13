@@ -7,45 +7,48 @@ $curr_user = 4;
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Comments</title>
-  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Comments</title>
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 </head>
+
 <body>
 
-  <!--Navigation bar-->
-  <div id="nav-placeholder"></div>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
 
-  <div class="container my-5">
+    <div class="container my-5">
 
-    <h2>My Comments</h2>
-    <a class="btn btn-primary" href="../comment/create.php"><i class="bi bi-plus-lg"> Add Comment</i></a>
-    <br>
-    <br>
+        <h2>My Comments</h2>
+        <a class="btn btn-primary" href="../comment/create.php"><i class="bi bi-plus-lg"> Add Comment</i></a>
+        <br>
+        <br>
 
-    <table class="table">
+        <table class="table">
 
-      <!-- TABLE HEADER -->
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Destination</th>
-          <th>Rating</th>
-          <th>Description</th>
-          <th></th> <!-- edit -->
-          <th></th> <!-- delete -->
-        </tr>
-      </thead>
+            <!-- TABLE HEADER -->
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Destination</th>
+                    <th>Rating</th>
+                    <th>Description</th>
+                    <th></th> <!-- edit -->
+                    <th></th> <!-- delete -->
+                </tr>
+            </thead>
 
-      <!-- TABLE BODY -->
-      <tbody>
+            <!-- TABLE BODY -->
+            <tbody>
 
-        <?php
+                <?php
 
           // query all of the users comments
           $result = $conn->query("SELECT * FROM `comments` WHERE `user_id`=$curr_user");
@@ -85,15 +88,15 @@ $curr_user = 4;
 
         ?>
 
-      </tbody>
-    </table>
-  </div>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 <script>
-  $(function(){
+$(function() {
     $("#nav-placeholder").load("../nav.html");
-  });
+});
 </script>
 
 <?php

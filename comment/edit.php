@@ -19,8 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     $comment_id = $_GET["comment_id"];
 
-    echo "$comment_id\n";
-
     // read the comment
     $sql = "SELECT * FROM `comments` " . 
            "WHERE `comment_id`=$comment_id";

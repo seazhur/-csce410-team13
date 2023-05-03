@@ -3,6 +3,10 @@ This processe the form for creating a new Trip
 and inserts the respective values into their corresponding tables -->
 
 <?php 
+    // $user_id = intval($_SESSION['user_id']);
+?>
+
+<?php 
     //connect to the database
     $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
     if (!$conn) { die("Connection failed: " . $conn->connect_error); }

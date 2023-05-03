@@ -12,24 +12,22 @@
         <label for="password">Password:</label>
         <input type="password" name="new_password" id="password" value="<?php echo $user['password']; ?>" required>
         <br>
-        <label for="first_name">First Name:</label>
-        <input type="text" name="new_first_name" id="first_name" value="<?php echo $user['first_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
-        <br>
-        <label for="last_name">Last Name:</label>
-        <input type="text" name="new_last_name" id="last_name" value="<?php echo $user['last_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
-        <br>
         <label for="phone_number">Phone Number:</label>
-        <input type="tel" name="new_phone_number" id="phone_number" value="<?php echo $user['phone_number']; ?>"required>
-        <br>
-        <label for="age">Age:</label>
-        <input type="number" name="new_age" id="age" value="<?php echo $user['age']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
+        <input type="tel" name="new_phone_number" id="phone_number" value="<?php echo $user['phone_number']; ?>" required>
         <br>
         <input type="submit" value="Update">
     </form>
-    <?php if (!$auth_user) echo "Note: You are not an authorized user."; ?>
-<!-- </body>
-</html> -->
-
+    <?php if (!$auth_user) echo "Note: You are an authorized user."; ?>
+    <br>
+    <form action="logout.php" method="post">
+        <input type="submit" value="Logout">
+    </form>
+    <br>
+    <form action="delete_account.php" method="post">
+        <input type="submit" value="Delete Account">
+    </form>
+</body>
+</html>
 
 <?php
 session_start();
@@ -44,7 +42,6 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-
 // Get the user's information from the database
 $username = $_SESSION['username'];
 $query = "SELECT * FROM users WHERE username = '$username'";
@@ -58,10 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the form data
     $new_username = $_POST['new_username'];
     $new_password = $_POST['new_password'];
-    $new_first_name = $_POST['new_first_name'];
-    $new_last_name = $_POST['new_last_name'];
     $new_phone_number = $_POST['new_phone_number'];
-    $new_age = $_POST['new_age'];
 
     // Check if the new username already exists
     if ($new_username != $username) {
@@ -74,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Update the user's information in the database
-    $query = "UPDATE users SET username = '$new_username', password = '$new_password', first_name = '$new_first_name', last_name = '$new_last_name', phone_number = '$new_phone_number', age = '$new_age' WHERE username = '$username'";
+    $query = "UPDATE users SET username = '$new_username', password = '$new_password', phone_number = '$new_phone_number' WHERE username = '$username'";
     if (mysqli_query($conn, $query)) {
         // Update the session variable with the new username
         $_SESSION['username'] = $new_username;
@@ -89,5 +83,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 ?>
-</body>
-</html>

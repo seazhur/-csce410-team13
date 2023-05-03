@@ -39,6 +39,12 @@
     <form action="navgate.php" method="post">
         <input type="submit" value="Home">
     </form>
+    <br>
+    <form action="delete_user.php" method="post">
+        <label for="username">Delete User:</label>
+        <input type="text" name="username" id="username" required>
+        <input type="submit" value="Delete">
+    </form>
 </body>
 </html>
 

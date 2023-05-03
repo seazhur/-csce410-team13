@@ -1,3 +1,8 @@
+<!-- This was written by Jenny Nguyen
+This is read.php so it handles all of the information being displayed, 
+the javascript for the functionality of the buttons, and any forms
+that are needed. -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

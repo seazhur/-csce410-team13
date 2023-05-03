@@ -1,5 +1,6 @@
-
-<!-- only update the dates on the trip -->
+<!-- This was written by Jenny Nguyen
+This file processes the update form to update the dates of a trip
+and its corresponding values in the table -->
 <?php 
     //connect to the database
     $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");

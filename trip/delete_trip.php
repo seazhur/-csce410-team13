@@ -1,3 +1,6 @@
+<!-- This was written by Jenny Nguyen
+This handles the delete function by deleting a whole trip
+for everyone involved. (basically cancels the trip). -->
 
 <?php 
     //connect to the database

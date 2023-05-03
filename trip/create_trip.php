@@ -1,3 +1,6 @@
+<!-- This was written by Jenny Nguyen
+This processe the form for creating a new Trip
+and inserts the respective values into their corresponding tables -->
 
 <?php 
     //connect to the database

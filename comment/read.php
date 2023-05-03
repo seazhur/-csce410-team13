@@ -6,8 +6,8 @@
 <?php include "../connect.php" ?>
 
 <?php 
-// TODO: Replace with current user
-$curr_user = intval($_GET['uid']);
+    // TODO: Replace with current user
+    $curr_user = intval($_GET['uid']);
 ?>
 
 <!DOCTYPE html>

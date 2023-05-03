@@ -50,6 +50,7 @@
             // store the user's information in the session for later use
             $_SESSION['username'] = $username;
             $_SESSION['is_authorized'] = $user['auth_user'];
+            $_SESSION['user_id'] = $user['user_id'];
 
             // redirect to the appropriate profile page based on the user's authorization status
             if ($user['auth_user'] == 1) {

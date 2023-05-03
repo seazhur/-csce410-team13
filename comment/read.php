@@ -7,7 +7,7 @@
 
 <?php 
 // TODO: Replace with current user
-$curr_user = 4; 
+$curr_user = intval($_GET['uid']);
 ?>
 
 <!DOCTYPE html>

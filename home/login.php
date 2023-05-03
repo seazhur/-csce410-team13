@@ -16,9 +16,10 @@
         <br>
         <input type="submit" value="Login">
     </form>
-    <p>Don't have an account? Click <a href="read.php">here</a> to login.</p>
+    <p>Don't have an account? Click <a href="read.php">here</a> to sign up.</p>
 
 </body>
+
 </html>
 
 <?php
@@ -31,18 +32,9 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        // connect to the database
-        $servername = "localhost";
-        $dbusername = "your_db_username";
-        $dbpassword = "your_db_password";
-        $dbname = "your_db_name";
-
-        $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-        // check for errors connecting to the database
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        //connect to the database
+        $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
+        if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
         // construct the SQL query to retrieve the user with the given username and password
         $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
@@ -77,4 +69,5 @@
     ?>
 
 </body>
+
 </html>

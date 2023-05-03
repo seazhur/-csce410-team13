@@ -30,9 +30,9 @@ if (mysqli_num_rows($result) === 0) {
 // Delete the user from the database
 $query = "DELETE FROM users WHERE username = '$username'";
 if (mysqli_query($conn, $query)) {
-    echo "User '$username' deleted successfully.";
+    echo "User '$username' deleted successfully. <a href='authuser.php'>Go back to profile</a>";
 } else {
-    echo "Error: " . mysqli_error($conn);
+    echo "Error: " . mysqli_error($conn) . "<a href='authuser.php'>Go back to profile</a>";
 }
 
 mysqli_close($conn);

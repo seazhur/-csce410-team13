@@ -25,3 +25,13 @@ if (mysqli_query($conn, $query)) {
 mysqli_close($conn);
 exit();
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Authorize User</title>
+</head>
+<body>
+	<a href="authprofile.php">Go back to profile</a>
+</body>
+</html>

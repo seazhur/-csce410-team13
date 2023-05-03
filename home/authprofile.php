@@ -131,6 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 $(function() {
-    $("#nav-placeholder").load("../nav.html");
+    $("#nav-placeholder").load("../nav.php");
 });
 </script>

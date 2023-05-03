@@ -100,7 +100,7 @@ $curr_user = 4;
 
 <script>
 $(function() {
-    $("#nav-placeholder").load("../nav.html");
+    $("#nav-placeholder").load("../nav.php");
 });
 </script>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 03, 2023 at 08:03 PM
+-- Generation Time: May 03, 2023 at 09:05 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Database: `trip2gether`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `admin_users`
+-- (See below for the actual view)
+--
+CREATE TABLE `admin_users` (
+`username` varchar(255)
+,`first_name` varchar(255)
+);
 
 -- --------------------------------------------------------
 
@@ -130,6 +141,28 @@ INSERT INTO `destinations` (`destination_id`, `attraction`, `city`, `state`) VAL
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `florida_attractions`
+-- (See below for the actual view)
+--
+CREATE TABLE `florida_attractions` (
+`attraction` varchar(255)
+,`state` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `nicest_comments`
+-- (See below for the actual view)
+--
+CREATE TABLE `nicest_comments` (
+`rating` int(11)
+,`description` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `trips`
 --
 
@@ -148,6 +181,17 @@ INSERT INTO `trips` (`trip_id`, `start_date`, `end_date`) VALUES
 (1, '2023-05-01', '2023-05-05'),
 (3, '2023-08-01', '2023-08-31'),
 (4, '2023-12-14', '2023-12-16');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `upcoming_trips`
+-- (See below for the actual view)
+--
+CREATE TABLE `upcoming_trips` (
+`start_date` date
+,`end_date` date
+);
 
 -- --------------------------------------------------------
 
@@ -175,7 +219,43 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `first_name`, `last_name
 (4, 'jessikuh', 'password_j', 'Jessyka', 'Flores', '0000000000', 22, 1),
 (6, 'jennee', 'password_j', 'Jenny', 'Nguyen', '0000000000', 22, 1),
 (8, 'adeeduv', 'password_a', 'Adidev', 'Mohapatra', '0000000000', 22, 1),
-(10, 'username', 'password', 'Cesar', 'Fuentes', '2147890012', 22, 0);
+(10, 'username', 'password', 'Julio', 'Ramirez', '0000000000', 10, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `admin_users`
+--
+DROP TABLE IF EXISTS `admin_users`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_users`  AS SELECT `users`.`username` AS `username`, `users`.`first_name` AS `first_name` FROM `users` WHERE `users`.`auth_user` = 11  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `florida_attractions`
+--
+DROP TABLE IF EXISTS `florida_attractions`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `florida_attractions`  AS SELECT `destinations`.`attraction` AS `attraction`, `destinations`.`state` AS `state` FROM `destinations` WHERE `destinations`.`state` = 'Florida''Florida'  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `nicest_comments`
+--
+DROP TABLE IF EXISTS `nicest_comments`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nicest_comments`  AS SELECT `comments`.`rating` AS `rating`, `comments`.`description` AS `description` FROM `comments` WHERE `comments`.`rating` = 55  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `upcoming_trips`
+--
+DROP TABLE IF EXISTS `upcoming_trips`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `upcoming_trips`  AS SELECT `trips`.`start_date` AS `start_date`, `trips`.`end_date` AS `end_date` FROM `trips` WHERE `trips`.`start_date` > curdate()  ;
 
 --
 -- Indexes for dumped tables

@@ -16,7 +16,7 @@
         <br>
         <input type="submit" value="Login">
     </form>
-    <p>Don't have an account? Click <a href="read.php">here</a> to sign up.</p>
+    <p>Don't have an account? Click <a href="sign_up.php">here</a> to sign up.</p>
 
 </body>
 

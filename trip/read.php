@@ -120,8 +120,20 @@ that are needed. -->
               echo '</form>';
             // echo '</div>'; //end form div
 
-            echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
-            echo "</div>"; //end of the panel
+            //check if user is an authorized user. if authorized, display cancel trip button
+            $get_auth = "SELECT users.auth_user FROM users WHERE users.user_id = $user_id";
+            $auth_status = mysqli_query($conn, $get_auth);
+            $auth_result = mysqli_fetch_assoc($auth_status);
+            $is_auth = $auth_result['auth_user'];
+            if($is_auth == 1){
+              echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
+              echo "</div>";
+            }
+            else {
+              echo "</div>";
+            }
+            // echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
+            // echo "</div>"; //end of the panel
           }
         }
       }

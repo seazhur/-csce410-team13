@@ -28,7 +28,7 @@
                 <li class="nav-item">
 
                     <?php 
-                      if ($_SESSION['auth_user'] == 1) { 
+                      if ($_SESSION['is_authorized'] == 1) { 
                     ?>
                     <a class="nav-link" href="../home/authprofile.php">Profile</a>
                     <?php } else { ?>

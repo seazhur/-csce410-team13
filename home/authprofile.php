@@ -53,6 +53,12 @@
             <input type="text" name="username" id="username" required>
             <input type="submit" value="Delete">
         </form>
+        <br>
+         <form action="authorize_user.php" method="post">
+            <label for="username">Give User Authorization:</label>
+            <input type="text" name="username" id="username" required>
+            <input type="submit" value="Authorize">
+        </form>
 
     </div>
 

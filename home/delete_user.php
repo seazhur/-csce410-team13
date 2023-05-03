@@ -32,7 +32,7 @@ $query = "DELETE FROM users WHERE username = '$username'";
 if (mysqli_query($conn, $query)) {
     echo "User '$username' deleted successfully. <a href='authprofile.php'>Go back to profile</a>";
 } else {
-    echo "Error: " . mysqli_error($conn) . "<a href='authprofile.php'>Go back to profile</a>";
+    echo "Error: " . mysqli_error($conn);
 }
 
 mysqli_close($conn);

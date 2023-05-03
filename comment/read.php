@@ -1,3 +1,8 @@
+<!--
+  NAME: Cesar Fuentes
+  DESCRIPTION: Lets the user VIEW their comments.
+ -->
+
 <?php include "../connect.php" ?>
 
 <?php 

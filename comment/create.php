@@ -1,3 +1,8 @@
+<!--
+  NAME: Cesar Fuentes
+  DESCRIPTION: Lets the user CREATE a comment.
+ -->
+
 <?php include "../connect.php" ?>
 
 <?php
@@ -51,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,15 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>Add Comment</title>
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 </head>
+
 <body>
 
     <!--Navigation bar-->
     <div id="nav-placeholder"></div>
 
     <div class="container my-5">
-        <h2>New Comment</h2> 
+        <h2>New Comment</h2>
 
         <!-- Error Message -->
         <?php
@@ -89,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                     <select class="form-select" name="dest-select">
                         <div class="col-sm-6">
-                            
+
                             <option selected></option>
 
                             <?php
@@ -103,22 +111,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         </div>
                     </select>
                 </div>
-            </div> 
+            </div>
 
             <!-- Rating -->
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Rating</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" name="rating" min="0" max="5" value="<?php echo $rating; ?>"> </div>
-            </div> 
+                    <input type="number" class="form-control" name="rating" min="0" max="5"
+                        value="<?php echo $rating; ?>">
+                </div>
+            </div>
 
             <!-- Description -->
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" name="description" rows="6" maxlength="255"><?php echo $description; ?></textarea>
+                    <textarea class="form-control" name="description" rows="6"
+                        maxlength="255"><?php echo $description; ?></textarea>
                 </div>
-            </div> 
+            </div>
 
             <!-- Buttons -->
             <div class="row mb-3">
@@ -134,14 +145,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
     </div>
-    
+
 </body>
+
 </html>
 
 <script>
-  $(function(){
+$(function() {
     $("#nav-placeholder").load("../nav.html");
-  });
+});
 </script>
 
 <?php mysqli_close($conn); ?>

@@ -1,3 +1,8 @@
+<!--
+  NAME: Cesar Fuentes
+  DESCRIPTION: Lets the user DELETE one of their comments.
+ -->
+
 <?php include "../connect.php" ?>
 
 <?php 
@@ -14,4 +19,3 @@ exit;
 ?>
 
 <?php mysqli_close($conn); ?>
-

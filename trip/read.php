@@ -22,11 +22,20 @@ that are needed. -->
     <div id="nav-placeholder"></div>
     <h2>My Trips</h2>
     <?php
+      session_start();
       //connect to the database
       $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
       if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
-      $user_id = 4; //will need to code later
+      //get the current user from the session
+      $username = $_SESSION['username'];
+      $query_userid = "SELECT users.user_id 
+                        FROM users 
+                        WHERE users.username = '$username'";
+      $query_user = mysqli_query($conn, $query_userid);
+      $get_user_id = mysqli_fetch_assoc($query_user);
+      $user_id = $get_user_id['user_id'];
+
 
       //get trips for a certain user
       $getTripID = "SELECT trips.trip_id, trips.start_date, trips.end_date
@@ -146,6 +155,7 @@ that are needed. -->
 
       // close the database connection
       mysqli_close($conn);
+      session_destroy();
     ?>
 
 </body>

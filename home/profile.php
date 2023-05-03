@@ -17,8 +17,7 @@
         <br>
         <input type="submit" value="Update">
     </form>
-    <p>Note: You are an authorized user</p>
-    <?php if (!$auth_user) echo "Note: You are an authorized user."; ?>
+    <p>Note: You are an authorized user.</p>
     <br>
     <form action="logout.php" method="post">
         <input type="submit" value="Logout">
@@ -26,6 +25,10 @@
     <br>
     <form action="delete_account.php" method="post">
         <input type="submit" value="Delete Account">
+    </form>
+    <br>
+    <form action="navgate.php" method="post">
+        <input type="submit" value="Home">
     </form>
 </body>
 </html>
@@ -48,9 +51,6 @@ $username = $_SESSION['username'];
 $query = "SELECT * FROM users WHERE username = '$username'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
-
-// Check if user is authorized
-$auth_user = $user['auth_user'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the form data

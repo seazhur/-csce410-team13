@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Login</title>
 </head>
+
 <body>
     <h1>Login</h1>
-    <form method="post" action="auth.php">
+    <form method="POST">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required>
         <br>
@@ -15,9 +17,10 @@
         <input type="submit" value="Login">
     </form>
 </body>
+
 </html>
 
-    <?php
+<?php
     // start a session to persist user information across pages
     session_start();
 

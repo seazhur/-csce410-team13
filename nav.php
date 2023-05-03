@@ -1,6 +1,7 @@
 <?php 
   session_start();
   $uid = $_SESSION['user_id'];
+  $username = $_SESSION['username'];
 ?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -36,12 +37,21 @@
                     <?php } ?>
 
                 </li>
+
+
             </ul>
         </div>
 
         <!-- Logout -->
         <!--<button class="btn btn-sm btn-outline-secondary" type="button">Logout</button>-->
         <form method="post" action="../home/logout.php">
+
+
+            <?php
+                echo "Hello, $username!";
+                echo str_repeat('&nbsp;', 3)
+            ?>
+
             <button type="submit">Logout</button>
         </form>
 

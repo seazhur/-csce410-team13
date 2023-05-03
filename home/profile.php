@@ -17,6 +17,7 @@
         <br>
         <input type="submit" value="Update">
     </form>
+    <p>Note: You are an authorized user</p>
     <?php if (!$auth_user) echo "Note: You are an authorized user."; ?>
     <br>
     <form action="logout.php" method="post">

@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 <script>
 $(function() {
-    $("#nav-placeholder").load("../nav.html");
+    $("#nav-placeholder").load("../nav.php");
 });
 </script>
 

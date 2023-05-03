@@ -18,6 +18,9 @@
                     <a class="nav-link" href="../comment/read.php">Comments</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="../destination/read_dest.php">Destinations</a>
+                </li>
+                <li class="nav-item">
                     <?php if ($_SESSION['auth_user'] == 1) { ?>
                     <a class="nav-link" href="../home/authprofile.php">Profile</a>
                     <?php } else { ?>

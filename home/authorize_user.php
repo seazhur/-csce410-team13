@@ -6,7 +6,7 @@ $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
 if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
 // Check if user is logged in and authorized
-if (!isset($_SESSION['username']) || $_SESSION['auth_user'] != 1) {
+if (!isset($_SESSION['username']) || $_SESSION['is_authorized'] != 1) {
     header("Location: login.php");
     exit();
 }
@@ -25,6 +25,3 @@ if (mysqli_query($conn, $query)) {
 mysqli_close($conn);
 exit();
 ?>
-
-
-

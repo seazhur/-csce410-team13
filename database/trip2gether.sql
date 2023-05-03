@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2023 at 06:22 AM
+-- Generation Time: May 03, 2023 at 08:03 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -144,8 +144,8 @@ CREATE TABLE `trips` (
 --
 
 INSERT INTO `trips` (`trip_id`, `start_date`, `end_date`) VALUES
-(1, '2023-05-01', '2023-05-05'),
 (2, '2023-04-16', '2023-04-29'),
+(1, '2023-05-01', '2023-05-05'),
 (3, '2023-08-01', '2023-08-31'),
 (4, '2023-12-14', '2023-12-16');
 
@@ -162,18 +162,20 @@ CREATE TABLE `users` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `phone_number` varchar(255) NOT NULL,
-  `age` int(11) NOT NULL
+  `age` int(11) NOT NULL,
+  `auth_user` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `first_name`, `last_name`, `phone_number`, `age`) VALUES
-(2, 'seazhur', 'password_c', 'Cesar', 'Fuentes', '2147890012', 24),
-(4, 'jessikuh', 'password_j', 'Jessyka', 'Flores', '0000000000', 22),
-(6, 'jennee', 'password_j', 'Jenny', 'Nguyen', '0000000000', 22),
-(8, 'adeeduv', 'password_a', 'Adidev', 'Mohapatra', '0000000000', 22);
+INSERT INTO `users` (`user_id`, `username`, `password`, `first_name`, `last_name`, `phone_number`, `age`, `auth_user`) VALUES
+(2, 'seazhur', 'password_c', 'Cesar', 'Fuentes', '2147890012', 24, 1),
+(4, 'jessikuh', 'password_j', 'Jessyka', 'Flores', '0000000000', 22, 1),
+(6, 'jennee', 'password_j', 'Jenny', 'Nguyen', '0000000000', 22, 1),
+(8, 'adeeduv', 'password_a', 'Adidev', 'Mohapatra', '0000000000', 22, 1),
+(10, 'username', 'password', 'Cesar', 'Fuentes', '2147890012', 22, 0);
 
 --
 -- Indexes for dumped tables
@@ -199,25 +201,29 @@ ALTER TABLE `attendances`
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `destination_id` (`destination_id`);
+  ADD KEY `destination_id` (`destination_id`),
+  ADD KEY `user_id_2` (`user_id`,`destination_id`);
 
 --
 -- Indexes for table `destinations`
 --
 ALTER TABLE `destinations`
-  ADD PRIMARY KEY (`destination_id`);
+  ADD PRIMARY KEY (`destination_id`),
+  ADD KEY `attraction` (`attraction`,`city`);
 
 --
 -- Indexes for table `trips`
 --
 ALTER TABLE `trips`
-  ADD PRIMARY KEY (`trip_id`);
+  ADD PRIMARY KEY (`trip_id`),
+  ADD KEY `start_date` (`start_date`,`end_date`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `last_name` (`last_name`,`phone_number`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -245,7 +251,7 @@ ALTER TABLE `trips`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

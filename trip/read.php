@@ -3,6 +3,10 @@ This is read.php so it handles all of the information being displayed,
 the javascript for the functionality of the buttons, and any forms
 that are needed. -->
 
+<?php
+  $user_id = intval($_GET['uid']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,20 +26,19 @@ that are needed. -->
     <div id="nav-placeholder"></div>
     <h2>My Trips</h2>
     <?php
-      session_start();
+      // session_start();
       //connect to the database
       $conn = new mysqli("localhost", "Cesar", "DX8317oZ]XFs0mMo", "trip2gether");
       if (!$conn) { die("Connection failed: " . $conn->connect_error); }
 
       //get the current user from the session
-      $username = $_SESSION['username'];
-      $query_userid = "SELECT users.user_id 
-                        FROM users 
-                        WHERE users.username = '$username'";
-      $query_user = mysqli_query($conn, $query_userid);
-      $get_user_id = mysqli_fetch_assoc($query_user);
-      $user_id = $get_user_id['user_id'];
-
+      // $username = $_SESSION['username'];
+      // $query_userid = "SELECT users.user_id 
+      //                   FROM users 
+      //                   WHERE users.username = '$username'";
+      // $query_user = mysqli_query($conn, $query_userid);
+      // $get_user_id = mysqli_fetch_assoc($query_user);
+      // $user_id = $get_user_id['user_id']
 
       //get trips for a certain user
       $getTripID = "SELECT trips.trip_id, trips.start_date, trips.end_date
@@ -117,8 +120,20 @@ that are needed. -->
               echo '</form>';
             // echo '</div>'; //end form div
 
-            echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
-            echo "</div>"; //end of the panel
+            //check if user is an authorized user. if authorized, display cancel trip button
+            $get_auth = "SELECT users.auth_user FROM users WHERE users.user_id = $user_id";
+            $auth_status = mysqli_query($conn, $get_auth);
+            $auth_result = mysqli_fetch_assoc($auth_status);
+            $is_auth = $auth_result['auth_user'];
+            if($is_auth == 1){
+              echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
+              echo "</div>";
+            }
+            else {
+              echo "</div>";
+            }
+            // echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
+            // echo "</div>"; //end of the panel
           }
         }
       }
@@ -155,7 +170,7 @@ that are needed. -->
 
       // close the database connection
       mysqli_close($conn);
-      session_destroy();
+      // session_destroy();
     ?>
 
 </body>

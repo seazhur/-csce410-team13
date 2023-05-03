@@ -34,16 +34,8 @@
         </form>
         <p>Note: You are not an authorized user.</p>
         <br>
-        <form action="logout.php" method="post">
-            <input type="submit" value="Logout">
-        </form>
-        <br>
         <form action="delete_account.php" method="post">
             <input type="submit" value="Delete Account">
-        </form>
-        <br>
-        <form action="navgate.php" method="post">
-            <input type="submit" value="Home">
         </form>
 
     </div>

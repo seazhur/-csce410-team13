@@ -6,8 +6,10 @@
 <?php include "../connect.php" ?>
 
 <?php 
-// TODO: Replace with current user
-$curr_user = 4; 
+    // TODO: Replace with current user
+    $curr_user = intval($_GET['uid']);
+    $is_authorized = intval($_SESSION['is_authorized']);
+    echo $is_authorized;
 ?>
 
 <!DOCTYPE html>
@@ -55,8 +57,15 @@ $curr_user = 4;
 
                 <?php
 
+
+            $condition = "";
+            if ($is_authorized == 0) {
+                $condition= "WHERE `user_id`=$curr_user";
+            }            
+
+
           // query all of the users comments
-          $result = $conn->query("SELECT * FROM `comments` WHERE `user_id`=$curr_user");
+          $result = $conn->query("SELECT * FROM `comments` " . $condition);
           if (!$result) { echo "SQL Query Error!"; }
 
           while($comm_row = $result->fetch_assoc()) {

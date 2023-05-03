@@ -11,14 +11,13 @@
 </head>
 
 <body>
-    <h1>Profile</h1>
 
     <!--Navigation bar-->
     <div id="nav-placeholder"></div>
 
     <div class="container my-5">
 
-
+        <h1>Profile</h1>
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <label for="username">Username:</label>
@@ -45,22 +44,20 @@
         </form>
         <p>Note: You are an authorized user.</p>
         <br>
-        <form action="logout.php" method="post">
-            <input type="submit" value="Logout">
-        </form>
-        <br>
         <form action="delete_account.php" method="post">
             <input type="submit" value="Delete Account">
-        </form>
-        <br>
-        <form action="navgate.php" method="post">
-            <input type="submit" value="Home">
         </form>
         <br>
         <form action="delete_user.php" method="post">
             <label for="username">Delete User:</label>
             <input type="text" name="username" id="username" required>
             <input type="submit" value="Delete">
+        </form>
+        <br>
+         <form action="authorize_user.php" method="post">
+            <label for="username">Give User Authorization:</label>
+            <input type="text" name="username" id="username" required>
+            <input type="submit" value="Authorize">
         </form>
 
     </div>

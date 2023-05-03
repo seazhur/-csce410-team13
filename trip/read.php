@@ -1,3 +1,8 @@
+<!-- This was written by Jenny Nguyen
+This is read.php so it handles all of the information being displayed, 
+the javascript for the functionality of the buttons, and any forms
+that are needed. -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,11 +93,54 @@
               $attendee = $row['first_name'];
               echo "$attendee <br>";
             }
-            echo '<div><br><button class="delete-btn" data-tripid="'.$trip_id.'">Remove Trip</button></div>';
-            echo "</div>";
+            // echo '<br><div><button class="update-btn" id="update" data-tripid="'.$trip_id.'">Update trip</button>';
+            // echo '<div>';
+              echo '<br><br>Update trip date range here: <br>';
+              echo '<form id="update_form" action="update_trip.php" method="POST">
+              <label for="new_start_date">New Start Date: </label>
+              <input type="date" name="new_start_date" required><br>
+              <label for="new_end_date">New End Date: </label>
+              <input type="date" name="new_end_date" required><br>
+              <input type="hidden" name="trip_id_date" value="'.$trip_id.'">';
+              echo '<input type="submit" value="Submit" name="submitDate"><br><br>';
+              echo '</form>';
+            // echo '</div>'; //end form div
+
+            echo '<button class="delete-btn" data-tripid="'.$trip_id.'">Cancel trip</button></div>';
+            echo "</div>"; //end of the panel
           }
         }
       }
+
+      echo '<br><button id="create_btn">Add new trip</button>';
+      //create a form to create a new trip
+      echo '<form id="trip_form" action="create_trip.php" method="POST" style="display:none">
+              <label for="start_date">Start Date: </label>
+              <input type="date" name="start_date" required><br>
+              <label for="end_date">End Date: </label>
+              <input type="date" name="end_date" required><br><br>';
+
+      //get all users as options for the form
+      echo  '<label for="attendees">Attendees: </label>
+              <select name="attendees[]" multiple required>';
+              $get_users = "SELECT * FROM users";
+              $users = $conn->query($get_users);
+              while($row = mysqli_fetch_assoc($users)) {
+                echo '<option value="'.$row["user_id"].'">'.$row["first_name"].'</option>';
+              }
+      echo '</select><br><br>';
+      
+      echo '<div id="dest_container">
+            <label for="attraction"> Destination: </label>
+            <input type="text" name="attractions[]" required><br>
+            <label for="city">City: </label>
+            <input type="text" name="cities[]" required><br>
+            <label for="state">State: </label>
+            <input type="text" name="states[]" required><br><br></div>';
+      echo '<button id="add_new_dest">Add additional destination</button><br><br>';
+
+      echo '<input type="submit" value="Submit" name="submitTrip"><br>';
+      echo '</form>';
 
       // close the database connection
       mysqli_close($conn);
@@ -106,11 +154,17 @@
     $("#nav-placeholder").load("../nav.html");
   });
 
+  // var updateTrip = document.getElementById("update");
+  // var updateForm = document.getElementById("update_form");
+  // updateTrip.addEventListener("click", function() { //display form when the update trip button is clicked
+  //   updateForm.style.display = "block";
+  // });
+
   var acc = document.getElementsByClassName("accordion");
   var i;
 
   for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
+    acc[i].addEventListener("click", function() { //for the accordion
     // Toggle between adding and removing the "active" class,
     // to highlight the button that controls the panel 
       this.classList.toggle("active");
@@ -124,14 +178,14 @@
       }
       if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    }
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
     });
   }
 
   $(document).ready(function() {
-    $(".delete-btn").click(function() {
+    $(".delete-btn").click(function() { //when the cancel trip button is clicked
       var trip_id = $(this).data("tripid");
       $.post("delete_trip.php", {del_trip_id: trip_id}, function() {
         location.reload();
@@ -139,5 +193,27 @@
     })
   })
   
+  var createTrip = document.getElementById("create_btn");
+  var tripForm = document.getElementById("trip_form");
+
+  createTrip.addEventListener("click", function() { //display form when the add trip button is clicked
+    tripForm.style.display = "block";
+  });
+
+  $(document).ready(function() {
+    $("#add_new_dest").click(function() { //when the add additional destination button is clicked
+      var add_attraction = '<label for="attraction">Destination:</label>' +
+                            '<input type="text" name="attractions[]" required><br>';
+      var add_city = '<label for="city">City:</label>' +
+                      '<input type="text" name="cities[]" required><br>';
+      var add_state = '<label for="state">State:</label>' +
+                      '<input type="text" name="states[]" required><br><br>';
+
+      $("#dest_container").append(add_attraction);
+      $("#dest_container").append(add_city);
+      $("#dest_container").append(add_state);
+
+    });
+  });
   
 </script>

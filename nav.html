@@ -17,13 +17,17 @@
             <a class="nav-link" href="../comment/read.php">Comments</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="../profile/read.php">Profile</a>
+            <a class="nav-link"  href="../home/profile.php">Profile</a>
           </li>
         </ul>
       </div>
 
       <!-- Logout -->
-      <button class="btn btn-sm btn-outline-secondary" type="button">Logout</button>
+      <!--<button class="btn btn-sm btn-outline-secondary" type="button">Logout</button>-->
+      <form method="post" action="../home/logout.php">
+        <button type="submit">Logout</button>
+      </form>
+
 
     </div>
 </nav>

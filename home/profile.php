@@ -17,7 +17,7 @@
         <br>
         <input type="submit" value="Update">
     </form>
-    <p>Note: You are an authorized user.</p>
+    <p>Note: You are not an authorized user.</p>
     <br>
     <form action="logout.php" method="post">
         <input type="submit" value="Logout">

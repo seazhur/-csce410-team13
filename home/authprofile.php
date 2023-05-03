@@ -13,20 +13,20 @@
         <input type="password" name="new_password" id="password" value="<?php echo $user['password']; ?>" required>
         <br>
         <label for="first_name">First Name:</label>
-        <input type="text" name="new_first_name" id="first_name" value="<?php echo $user['first_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
+        <input type="text" name="new_first_name" id="first_name" value="<?php echo $user['first_name']; ?>" required>
         <br>
         <label for="last_name">Last Name:</label>
-        <input type="text" name="new_last_name" id="last_name" value="<?php echo $user['last_name']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
+        <input type="text" name="new_last_name" id="last_name" value="<?php echo $user['last_name']; ?>" required>
         <br>
         <label for="phone_number">Phone Number:</label>
         <input type="tel" name="new_phone_number" id="phone_number" value="<?php echo $user['phone_number']; ?>"required>
         <br>
         <label for="age">Age:</label>
-        <input type="number" name="new_age" id="age" value="<?php echo $user['age']; ?>"<?php if (!$auth_user) echo " readonly"; ?> required>
+        <input type="number" name="new_age" id="age" value="<?php echo $user['age']; ?>" required>
         <br>
         <input type="submit" value="Update">
     </form>
-    <?php if (!$auth_user) echo "Note: You are an authorized user."; ?>
+    <p>Note: You are an authorized user.</p>
 </body>
 </html>
 
@@ -50,9 +50,6 @@ $username = $_SESSION['username'];
 $query = "SELECT * FROM users WHERE username = '$username'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
-
-// Check if user is authorized
-$auth_user = $user['auth_user'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the form data

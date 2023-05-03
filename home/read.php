@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h1>Signup</h1>
-	<form action="signup.php" method="POST">
+	<form method="POST">
 		<label for="username">Username:</label>
 		<input type="text" id="username" name="username" required><br><br>
 		<label for="password">Password:</label>

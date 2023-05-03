@@ -16,8 +16,9 @@
         <br>
         <input type="submit" value="Login">
     </form>
-</body>
+    <p>Don't have an account? Click <a href="read.php">here</a> to login.</p>
 
+</body>
 </html>
 
 <?php
@@ -74,3 +75,6 @@
         $conn->close();
     }
     ?>
+
+</body>
+</html>

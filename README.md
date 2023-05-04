@@ -22,7 +22,7 @@ This is our final project for CSCE 310.
 
 ## Getting Started
 
-- Open the [login](http://localhost/trip2gether/login/login.php) page
+- Open the [login](http://localhost/trip2gether/home/login.php) page
 
 ## Authors
 

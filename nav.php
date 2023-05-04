@@ -2,6 +2,7 @@
   session_start();
   $uid = $_SESSION['user_id'];
   $username = $_SESSION['username'];
+  $is_authorized = $_SESSION['is_authorized'];
 ?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -21,7 +22,7 @@
                     <a class="nav-link" href="../trip/read.php?uid=<?php echo $uid; ?>">Trips</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../comment/read.php?uid=<?php echo $uid; ?>">Comments</a>
+                    <a class="nav-link" href="../comment/read.php">Comments</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../destination/read.php?uid=<?php echo $uid; ?>">Destinations</a>
@@ -41,6 +42,7 @@
 
             </ul>
         </div>
+
 
         <!-- Logout -->
         <!--<button class="btn btn-sm btn-outline-secondary" type="button">Logout</button>-->

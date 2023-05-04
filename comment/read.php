@@ -6,10 +6,16 @@
 <?php include "../connect.php" ?>
 
 <?php 
-    // TODO: Replace with current user
-    $curr_user = intval($_GET['uid']);
+    session_start();
+    $curr_user = intval($_SESSION['user_id']);
     $is_authorized = intval($_SESSION['is_authorized']);
-    echo $is_authorized;
+
+    if ($is_authorized == 0) {
+        $title = "My Comments";
+    } else {
+        $title = "All User Comments";
+    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +39,13 @@
 
     <div class="container my-5">
 
-        <h2>My Comments</h2>
-        <a class="btn btn-primary" href="../comment/create.php"><i class="bi bi-plus-lg"> Add Comment</i></a>
+        <h2><?php echo $title; ?></h2>
+
+        <?php if ($is_authorized == 0) { ?>
+        <a class="btn btn-primary" href="../comment/create.php"><i class="bi bi-plus-lg">
+                Add Comment</i></a>
+        <?php }?>
+
         <br>
         <br>
 
@@ -44,10 +55,19 @@
             <thead>
                 <tr>
                     <th>Date</th>
+
+                    <?php if ($is_authorized == 1) { ?>
+                    <th>Name</th>
+                    <?php }?>
+
                     <th>Destination</th>
                     <th>Rating</th>
                     <th>Description</th>
+
+                    <?php if ($is_authorized == 0) { ?>
                     <th></th> <!-- edit -->
+                    <?php }?>
+
                     <th></th> <!-- delete -->
                 </tr>
             </thead>
@@ -59,7 +79,7 @@
 
 
             $condition = "";
-            if ($is_authorized == 0) {
+            if ($is_authorized == 0) { // user, not admin
                 $condition= "WHERE `user_id`=$curr_user";
             }            
 
@@ -70,10 +90,13 @@
 
           while($comm_row = $result->fetch_assoc()) {
 
-              // Get user name
+              // Get user row
               $result3 = $conn->query("SELECT * FROM `users` WHERE `user_id`=$comm_row[user_id]");
               if (!$result3) { echo "SQL Query Error!"; }
               $user_row = $result3->fetch_assoc();
+
+              // Get user name
+              $username = $user_row['username'];
 
               // Get destination name from destination_id
               $result2 = $conn->query("SELECT * FROM `destinations` WHERE `destination_id`=$comm_row[destination_id]");
@@ -87,16 +110,23 @@
               // Reformat date
               $valid_date = date( 'm/d/y', strtotime("$comm_row[creation_time]")); // (g:i A)
 
-              echo "
-              <tr>
-                <td>$valid_date</td>
-                <td>$dest_row[attraction]</td>
-                <td>$stars</td>
-                <td>$comm_row[description]</td>
-                <td><a class='btn btn-primary btn-sm' href='../comment/edit.php?comment_id=$comm_row[comment_id]'><i class='bi bi-pencil-fill'></i></a></td>
-                <td><a class='btn btn-danger btn-sm' href='../comment/delete.php?comment_id=$comm_row[comment_id]'><i class='bi bi-trash-fill'></i></a></td>
-              </tr>
-              ";
+              echo "<tr>";
+              echo "<td>$valid_date</td>";
+
+                if ($is_authorized == 1) {
+                    echo "<td>$username</td>";
+                }
+
+            echo "<td>$dest_row[attraction]</td>";
+            echo "<td>$stars</td>";
+            echo "<td>$comm_row[description]</td>";
+
+                if ($is_authorized == 0) {
+                    echo "<td><a class='btn btn-primary btn-sm' href='../comment/edit.php?comment_id=$comm_row[comment_id]'><i class='bi bi-pencil-fill'></i></a></td>";
+                }
+                
+              echo "<td><a class='btn btn-danger btn-sm' href='../comment/delete.php?comment_id=$comm_row[comment_id]'><i class='bi bi-trash-fill'></i></a></td>";
+              echo "</tr>";
               
           }
 

@@ -7,8 +7,8 @@
 
 <?php
 
-// TODO: Replace with current user
-$curr_user = intval($_GET['uid']);
+session_start();
+$curr_user = intval($_SESSION['user_id']);
 
 $destination_id = "";
 $rating = "";
@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $rating = $_POST["rating"];
     $description = $_POST["description"];
 
+
     do {
 
         // validate inputs
@@ -34,9 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // add new comment to database
         $query = "INSERT INTO `comments` (`comment_id`, `rating`, `description`, `creation_time`, `user_id`, `destination_id`)" . 
                  "VALUES (NULL, '$rating', '$description', current_timestamp(),  $curr_user, $destination_id)";
+
+        echo "$query";
+
         $result = $conn->query($query);
+
+                    echo "here";
+
         if (!$result) { $errorMessage = "Invalid Query: " . $conn->connect_error; break; }
 
+            echo "here";
+
+            
         // reset the form values
         $destination_id = "";
         $rating = "";

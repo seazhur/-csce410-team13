@@ -2,9 +2,9 @@
   NAME: Jessyka Flores
   DESCRIPTION: Lets the user UPDATE a destination.
  -->
- <?php include "../connect.php" ?>
+<?php include "../connect.php" ?>
 
- <?php 
+<?php 
 // TODO: Replace with current user
 $curr_user = 4; 
 ?>
@@ -41,8 +41,14 @@ $curr_user = 4;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
         integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 </head>
-    <body>
-        <div id="nav-placeholder"></div>
+
+<body>
+    <div id="nav-placeholder"></div>
+
+    <div class="container my-5">
+
+        <h2>Update Destination</h2>
+
         <div>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <input type="hidden" name="destination_id" value="1">
@@ -52,7 +58,11 @@ $curr_user = 4;
                 <input type="submit" value="Update">
             </form>
         </div>
-    </body>
+
+    </div>
+
+</body>
+
 </html>
 <script>
 $(function() {

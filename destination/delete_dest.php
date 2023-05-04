@@ -3,7 +3,9 @@
   DESCRIPTION: Lets the user DELETE a destination.
  -->
 
- <?php include "../connect.php" 
+<?php include "../connect.php" 
+
+//  echo "test!";
 
 if (isset($_GET['destination_id'])) {
  

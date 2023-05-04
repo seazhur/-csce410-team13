@@ -3,12 +3,9 @@
   DESCRIPTION: Lets the user CREATE a destination.
  -->
 
- <?php include "../connect.php" ?>
+<?php include "../connect.php" ?>
 
 <?php
-
-// TODO: Replace with current user
-$curr_user = 4; 
 
 $destination_id = "";
 $rating = "";
@@ -29,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':attraction', $attraction);
     $stmt->bindParam(':city', $city);
     $stmt->bindParam(':state', $state);
-  
     
     $stmt->execute();
   
@@ -37,21 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "New destination created!";
   }
   ?>
-  
-  <form method="post">
-    <label for="attraction">Attraction:</label>
-    <input type="text" id="attraction" name="attraction"><br>
-  
-    <label for="city">City:</label>
-    <input type="text" id="city" name="city"><br>
-  
-    <label for="state">State:</label>
-    <input type="text" id="state" name="state"><br>
-  
-    <input type="submit" value="Create destination">
-  </form>
 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -68,33 +51,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div id="nav-placeholder"></div>
 
+    <div class="container my-5">
 
-    <form method = "post">
-        <div>
-            <label class="col-sm-3 col-form-label">Destination</label>
-        </div>
-        <div class="row mb-3">
+        <h2>Create Destination</h2>
+
+
+        <form method="post">
+            <!-- <div>
+                <label class="col-sm-3 col-form-label">Destination</label>
+            </div> -->
+
+            <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Attraction</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="attraction"
-                        value="<?php echo $attraction; ?>">
+                    <input type="text" class="form-control" name="attraction" value="<?php echo $attraction; ?>">
                 </div>
-        </div>
-        <div class="row mb-3">
+            </div>
+            <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">City</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="city"
-                        value="<?php echo $city; ?>">
+                    <input type="text" class="form-control" name="city" value="<?php echo $city; ?>">
                 </div>
-        </div>
-        <div class="row mb-3">
+            </div>
+            <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">State</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="state"
-                        value="<?php echo $state; ?>">
+                    <input type="text" class="form-control" name="state" value="<?php echo $state; ?>">
                 </div>
-        </div>
-    </form> 
+            </div>
+
+            <!-- submit -->
+
+        </form>
+
+    </div>
+
 </body>
 
 </html>

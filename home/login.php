@@ -106,12 +106,15 @@
             $_SESSION['is_authorized'] = $user['auth_user'];
             $_SESSION['user_id'] = $user['user_id'];
 
-            // redirect to the appropriate profile page based on the user's authorization status
-            if ($_SESSION['is_authorized'] == 1) {
-                header("Location: authprofile.php");
-            } else {
-                header("Location: profile.php");
-            }
+            header("Location: ../trip/read.php");
+
+            // // redirect to the appropriate profile page based on the user's authorization status
+            // if ($_SESSION['is_authorized'] == 1) {
+            //     header("Location: authprofile.php");
+            // } else {
+            //     header("Location: profile.php");
+            // }
+
             exit();
         } else {
             // display an error message if the user's credentials are invalid

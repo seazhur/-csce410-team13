@@ -19,7 +19,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="../trip/read.php?uid=<?php echo $uid; ?>">Trips</a>
+                    <a class="nav-link" href="../trip/read.php">Trips</a>
+                    <!-- ?uid=<?php echo $uid; ?> -->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../comment/read.php">Comments</a>

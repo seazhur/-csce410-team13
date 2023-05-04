@@ -37,34 +37,51 @@
         <a class="btn btn-primary" href="../destination/create_dest.php"><i class="bi bi-plus-lg">Add
                 Destination</i></a>
 
-        <?php
-            $sql = "SELECT * FROM destinations"; // WHERE attraction='desired_attraction' AND city='desired_city' AND state='desired_state'
-            $result = mysqli_query($conn, $sql);
+        <br>
+        <br>
 
-            if (mysqli_num_rows($result) > 0) {
-                echo "<table>";
-                echo "<tr><th>Destination ID</th><th>Attraction</th><th>City</th><th>State</th></tr>";
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<td>" . $row["destination_id"] . "</td>";
-                    echo "<td>" . $row["attraction"] . "</td>";
-                    echo "<td>" . $row["city"] . "</td>";
-                    echo "<td>" . $row["state"] . "</td>";
+        <table class="table">
 
-                    echo "<td><a class='btn btn-primary btn-sm' href='../destination/update_dest.php?destination_id=$row[destination_id]'><i class='bi bi-pencil-fill'></i></a></td>";
-                
-                    echo "<td><a class='btn btn-danger btn-sm' href='../destination/delete_dest.php?destination_id=$row[destination_id]'><i class='bi bi-trash-fill'></i></a></td>";
+            <thead>
 
-                    echo "</tr>";
+                <tr>
+                    <th>Destination ID</th>
+                    <th>Attraction</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th></th> <!-- edit -->
+                    <th></th> <!-- delete -->
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+                <?php
+                $sql = "SELECT * FROM destinations"; // WHERE attraction='desired_attraction' AND city='desired_city' AND state='desired_state'
+                $result = mysqli_query($conn, $sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . $row["destination_id"] . "</td>";
+                        echo "<td>" . $row["attraction"] . "</td>";
+                        echo "<td>" . $row["city"] . "</td>";
+                        echo "<td>" . $row["state"] . "</td>";
+                        echo "<td><a class='btn btn-primary btn-sm' href='../destination/update_dest.php?destination_id=$row[destination_id]'><i class='bi bi-pencil-fill'></i></a></td>";
+                        echo "<td><a class='btn btn-danger btn-sm' href='../destination/delete_dest.php?destination_id=$row[destination_id]'><i class='bi bi-trash-fill'></i></a></td>";
+                        echo "</tr>";
+                    }
+
+                } else{
+                    echo "No destinations found";
                 }
-                echo "</table>";
+                ?>
+            </tbody>
 
-            } else{
-                echo "No destinations found";
-            }
-        ?>
+        </table>
 
-        <div>
+    </div>
 
 </body>
 

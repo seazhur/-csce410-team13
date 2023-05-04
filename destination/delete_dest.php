@@ -3,24 +3,20 @@
   DESCRIPTION: Lets the user DELETE a destination.
  -->
 
-<?php include "../connect.php" 
+<?php include "../connect.php" ?>
 
-//  echo "test!";
+<?php 
 
 if (isset($_GET['destination_id'])) {
  
-    $destination_id = mysqli_real_escape_string($conn, $_GET['destination_id']);
-  
-    $sql = "DELETE FROM destinations WHERE destination_id = '$destination_id'";
-  
-    if (mysqli_query($conn, $sql)) {
-      echo "Destination deleted!";
-    } else {
-      echo "Error: " . mysqli_error($conn);
-    }
+    $destination_id = $_GET['destination_id'];
+    $sql = "DELETE FROM destinations WHERE destination_id=$destination_id";
+    $conn->query($sql);
   }
 
  header("location: ../destination/read_dest.php");
  exit;
 
 ?>
+
+<?php mysqli_close($conn); ?>

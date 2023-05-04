@@ -61,10 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                "SET attraction='$attraction', city='$city', state='$state' " . 
                "WHERE destinations.destination_id=$destination_id";
 
-        echo "bitchhoe";
         $result = $conn->query($sql);
 
-        echo "bitchhoe";
         if (!$result) { $errorMessage = "Invalid Query: " . $conn->connect_error; break; }
 
         // go back to comments page

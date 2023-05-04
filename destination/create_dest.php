@@ -7,32 +7,52 @@
 
 <?php
 
-$destination_id = "";
-$rating = "";
-$description = "";
+$attraction = "";
+$city = "";
+$state = "";
 
 $errorMessage = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // sql statement
-    $stmt = $pdo->prepare("INSERT INTO destinations (attraction, city, state) VALUES (:attraction, :city, :state)");
-  
-    // assign values
-    $attraction = $_POST['attraction'];
-    $city = $_POST['city'];
-    $state = $_POST['state'];
-  
-    // bind placeholders to variables
-    $stmt->bindParam(':attraction', $attraction);
-    $stmt->bindParam(':city', $city);
-    $stmt->bindParam(':state', $state);
-    
-    $stmt->execute();
-  
-    // Output a success message
-    echo "New destination created!";
-  }
-  ?>
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") { 
+
+    // get the form inputs
+    $attraction = $_POST["attraction"];
+    $city = $_POST["city"];
+    $state = $_POST["state"];
+
+    do {
+
+        // validate inputs
+        if ( empty($attraction) || empty($city) ||  empty($state)) {
+            $errorMessage = "All fields are required";
+            break;
+        }
+
+        // add new comment to database
+        $query = "INSERT INTO `destinations` (`attraction`, `city`, `state`)" . 
+                 "VALUES ('$attraction', '$city', '$state')";
+
+        echo "$query";
+
+        $result = $conn->query($query);
+
+        if (!$result) { $errorMessage = "Invalid Query: " . $conn->connect_error; break; }
+            
+        // reset the form values
+        $attraction = "";
+        $city = "";
+        $state = "";
+
+        // go back to comments page
+        header("location: ../destination/read_dest.php");
+        exit;
+
+    } while (false);
+
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,6 +75,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <h2>Create Destination</h2>
 
+        <!-- Error Message -->
+        <?php
+        if ( !empty($errorMessage) ) {
+            echo "
+            <div class='alert alert-danger'>
+                <strong>Error!</strong> $errorMessage
+            </div>
+            ";
+        }
+        ?>
 
         <form method="post">
             <!-- <div>
@@ -81,6 +111,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <!-- submit -->
+            <!-- Buttons -->
+            <div class="row mb-3">
+                <div class="offset-sm-3 col-sm-3 d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</buttons>
+                </div>
+                <div class="col-sm-3 d-grid">
+                    <a class="btn btn-outline-primary" href="../destination/read_dest.php" role="button">Cancel</a>
+                </div>
+            </div>
 
         </form>
 

@@ -34,6 +34,9 @@
 
         <h2>All Destinations</h2>
 
+        <a class="btn btn-primary" href="../destination/create_dest.php"><i class="bi bi-plus-lg">Add
+                Destination</i></a>
+
         <?php
             $sql = "SELECT * FROM destinations"; // WHERE attraction='desired_attraction' AND city='desired_city' AND state='desired_state'
             $result = mysqli_query($conn, $sql);

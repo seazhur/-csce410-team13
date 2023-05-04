@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $rating = $_POST["rating"];
     $description = $_POST["description"];
 
-
     do {
 
         // validate inputs

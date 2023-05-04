@@ -2,37 +2,44 @@
   NAME: Jessyka Flores
   DESCRIPTION: Lets the user READ a destination.
  -->
- <?php include "../connect.php" ?>
+<?php include "../connect.php" ?>
 
-<?php 
+<?php
 // TODO: Replace with current user
-$curr_user = 4; 
+// session_start();
+// $curr_user = intval($_SESSION['user_id']);
+// echo "$curr_user";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Destinations</title>
-        <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
-            integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations</title>
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+</head>
 
-    <body>
-        
-            <?php
-                $sql = "SELECT * FROM destination WHERE attraction='desired_attraction' AND city='desired_city' AND state='desired_state'";
+<body>
 
-                $result = mysqli_query($conn, $sql);
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
 
-                if (mysqli_num_rows($result) > 0) {
+    <div class="container my-5">
 
-                    echo "<table>";
+        <h2>All Destinations</h2>
+
+        <?php
+            $sql = "SELECT * FROM destinations"; // WHERE attraction='desired_attraction' AND city='desired_city' AND state='desired_state'
+            $result = mysqli_query($conn, $sql);
+
+            if (mysqli_num_rows($result) > 0) {
+                echo "<table>";
                 echo "<tr><th>Destination ID</th><th>Attraction</th><th>City</th><th>State</th></tr>";
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
@@ -42,15 +49,17 @@ $curr_user = 4;
                     echo "<td>" . $row["state"] . "</td>";
                     echo "</tr>";
                 }
-            
                 echo "</table>";
-            }
-            else{
+
+            } else{
                 echo "No destinations found";
             }
-            ?>
-        
-    </body>
+        ?>
+
+        <div>
+
+</body>
+
 </html>
 
 <script>

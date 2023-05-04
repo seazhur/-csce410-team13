@@ -25,7 +25,7 @@
                     <a class="nav-link" href="../comment/read.php">Comments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../destination/read.php?uid=<?php echo $uid; ?>">Destinations</a>
+                    <a class="nav-link" href="../destination/read_dest.php">Destinations</a>
                 </li>
                 <li class="nav-item">
 

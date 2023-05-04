@@ -7,6 +7,7 @@ This form is for any user to login and get added to the database -->
 <head>
     <title>Login</title>
     <style>
+    /* css portion to make login page visually aesthetic */
     body {
         background-color: #e6f2ff;
         display: flex;
@@ -109,14 +110,14 @@ This form is for any user to login and get added to the database -->
             $_SESSION['is_authorized'] = $user['auth_user'];
             $_SESSION['user_id'] = $user['user_id'];
 
-            header("Location: ../trip/read.php");
+        
 
-            // // redirect to the appropriate profile page based on the user's authorization status
-            // if ($_SESSION['is_authorized'] == 1) {
-            //     header("Location: authprofile.php");
-            // } else {
-            //     header("Location: profile.php");
-            // }
+            // redirect to the appropriate profile page based on the user's authorization status
+            if ($_SESSION['is_authorized'] == 1) {
+                header("Location: authprofile.php");
+            } else {
+                header("Location: profile.php");
+            }
 
             exit();
         } else {

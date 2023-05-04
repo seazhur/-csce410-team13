@@ -6,6 +6,7 @@ added to the database.  -->
 <head>
   <title>Signup Page</title>
   <style>
+    /* css portion to make login page visually aesthetic */
     body {
       background-color: #e6f2ff;
       display: flex;

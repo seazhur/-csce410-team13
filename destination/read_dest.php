@@ -50,6 +50,11 @@
                     echo "<td>" . $row["attraction"] . "</td>";
                     echo "<td>" . $row["city"] . "</td>";
                     echo "<td>" . $row["state"] . "</td>";
+
+                    echo "<td><a class='btn btn-primary btn-sm' href='../destination/update_dest.php?destination_id=$row[destination_id]'><i class='bi bi-pencil-fill'></i></a></td>";
+                
+                    echo "<td><a class='btn btn-danger btn-sm' href='../destination/delete_dest.php?destination_id=$row[destination_id]'><i class='bi bi-trash-fill'></i></a></td>";
+
                     echo "</tr>";
                 }
                 echo "</table>";

@@ -1,3 +1,6 @@
+<!-- This was written by Adidev Mohapatra 
+This form is to direct regular users to their profile page once they 
+login. -->
 <!DOCTYPE html>
 <html>
 

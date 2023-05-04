@@ -1,3 +1,6 @@
+<!-- This was written by Adidev Mohapatra 
+This form is for any user to login and get added to the database -->
+
 <!DOCTYPE html>
 <html>
 

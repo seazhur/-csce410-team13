@@ -1,3 +1,7 @@
+<!-- This was written by Adidev Mohapatra 
+This form is the any of the users to delete their 
+account and wipes them out of the database. -->
+
 <?php
 session_start();
 

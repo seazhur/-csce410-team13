@@ -1,3 +1,7 @@
+<!-- This was written by Adidev Mohapatra 
+This form is the authorize users, by adding a 1 in the auth_user column
+onces an authorized user approves them. -->
+
 <?php
 session_start();
 

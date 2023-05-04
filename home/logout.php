@@ -1,3 +1,5 @@
+<!-- This was written by Adidev Mohapatra 
+This form is to logout the user and return them back to the login page. -->
 <?php
     // start session
     session_start();

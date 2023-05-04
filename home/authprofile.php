@@ -1,3 +1,7 @@
+<!-- This was written by Adidev Mohapatra 
+This form is to direct authorized users to their profile page once they 
+login. -->
+
 <!DOCTYPE html>
 <html>
 

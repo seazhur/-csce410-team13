@@ -1,3 +1,6 @@
+<!-- This was written by Adidev Mohapatra 
+This form is to direct any potential new users and let them get 
+added to the database.  -->
 <!DOCTYPE html>
 <html>
 <head>

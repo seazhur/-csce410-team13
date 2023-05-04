@@ -1,3 +1,7 @@
+<!-- This was written by Adidev Mohapatra 
+This form is the for authorized users to delete any user
+they chose and wipe them from the database. -->
+
 <?php
 session_start();
 
